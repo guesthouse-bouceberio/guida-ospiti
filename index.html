@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guida Ospiti – Fénis</title>
+
+<style>
+body{font-family:Arial,Helvetica,sans-serif;margin:0;background:#f4f6f8;color:#333}
+header{background:#1f2f3f;color:white;padding:26px;text-align:center}
+nav{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:12px}
+nav a{color:white;text-decoration:none;font-size:14px;background:#32475b;padding:7px 12px;border-radius:8px}
+.container{max-width:1100px;margin:auto;padding:20px}
+.card{background:white;padding:22px;margin-bottom:22px;border-radius:14px;box-shadow:0 6px 18px rgba(0,0,0,0.08)}
+h2{margin-top:0}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
+.gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+img{width:100%;border-radius:10px}
+.button{display:inline-block;padding:10px 16px;background:#1f2f3f;color:white;text-decoration:none;border-radius:8px;margin:6px 4px;font-size:14px}
+.badge{background:#eef2f6;padding:8px 12px;border-radius:8px;font-size:14px;display:inline-block;margin:4px}
+ul{padding-left:18px}
+footer{text-align:center;padding:30px;font-size:14px;color:#777}
+.map{width:100%;height:380px;border:0;border-radius:12px}
+.restaurant{display:grid;grid-template-columns:110px 1fr;gap:12px;margin-bottom:14px}
+.restaurant img{width:110px;height:90px;object-fit:cover}
+.highlight{background:#f0f3f7;padding:12px;border-radius:10px;margin-top:10px}
+.place-card{background:#f9fbfd;padding:10px;border-radius:10px}
+.place-card img{height:150px;object-fit:cover}
+</style>
+
+</head>
+
+<body>
+
+<header>
+<h1>🏡 Benvenuti a Fénis</h1>
+<p>Guida digitale dell'appartamento e della Valle d'Aosta</p>
+
+<nav>
+<a href="#wifi">Wi‑Fi</a>
+<a href="#casa">Casa</a>
+<a href="#servizi">Servizi extra</a>
+<a href="#turismo">Cosa vedere</a>
+<a href="#gastronomia">Consigli enogastronomici</a>
+<a href="#checkout">Check‑out</a>
+</nav>
+
+<div id="google_translate_element"></div>
+
+</header>
+
+<div class="container">
+
+<!-- WIFI -->
+<div class="card" id="wifi">
+<h2>📶 Wi‑Fi</h2>
+<p><strong>Rete:</strong> INSERIRE_WIFI</p>
+<p><strong>Password:</strong> INSERIRE_PASSWORD</p>
+</div>
+
+<!-- COME USARE LA CASA -->
+<div class="card" id="casa">
+<h2>🏠 Come usare la casa</h2>
+<div class="grid">
+<div><img src="clima.jpg"><p><strong>Climatizzatore</strong><br>Telecomando vicino alla TV.</p></div>
+<div><img src="lavatrice.jpg"><p><strong>Lavatrice</strong><br>Programma rapido consigliato.</p></div>
+<div><img src="caffe.jpg"><p><strong>Macchina caffè</strong><br>Cialde disponibili.</p></div>
+<div><img src="tv.jpg"><p><strong>Smart TV</strong><br>Netflix disponibile.</p></div>
+</div>
+</div>
+
+<!-- SERVIZI EXTRA -->
+<div class="card" id="servizi">
+<h2>☕ Servizi extra disponibili</h2>
+<p>Puoi richiedere questi servizi durante il soggiorno.</p>
+
+<div class="badge">🥐 Cesto colazione</div>
+<div class="badge">👕 Lavanderia express</div>
+<div class="badge">🚲 Noleggio bici</div>
+<div class="badge">🥾 Escursioni guidate</div>
+
+</div>
+
+<!-- FOTO APPARTAMENTO -->
+<div class="card">
+<h2>📸 Foto dell'appartamento</h2>
+<div class="gallery">
+<img src="foto1.jpg">
+<img src="foto2.jpg">
+<img src="foto3.jpg">
+<img src="foto4.jpg">
+</div>
+</div>
+
+<!-- SEZIONE TURISTICA -->
+<div id="turismo">
+
+<div class="card">
+<h2>🏰 Attrazioni vicino a Fénis</h2>
+<div class="grid">
+
+<div class="place-card">
+<img src="castello-fenis.jpg">
+<p><strong>Castello di Fénis</strong></p>
+<a class="button" href="https://maps.google.com/?q=Castello+di+Fenis">Apri mappa</a>
+</div>
+
+<div class="place-card">
+<img src="aosta.jpg">
+<p><strong>Città di Aosta</strong></p>
+<a class="button" href="https://maps.google.com/?q=Aosta">Apri mappa</a>
+</div>
+
+<div class="place-card">
+<img src="gran-paradiso.jpg">
+<p><strong>Parco Nazionale Gran Paradiso</strong></p>
+<a class="button" href="https://maps.google.com/?q=Parco+Nazionale+Gran+Paradiso">Apri mappa</a>
+</div>
+
+<div class="place-card">
+<img src="skyway.jpg">
+<p><strong>Skyway Monte Bianco</strong></p>
+<a class="button" href="https://maps.google.com/?q=Skyway+Monte+Bianco">Apri mappa</a>
+</div>
+
+</div>
+</div>
+
+<div class="card">
+<h2>🚲 Esperienze consigliate</h2>
+<div class="highlight">🥾 Trekking panoramici</div>
+<div class="highlight">🚲 Noleggio e‑bike</div>
+<div class="highlight">🍷 Degustazioni vini valdostani</div>
+<div class="highlight">🧀 Visita ai caseifici della Fontina</div>
+<div class="highlight">❄️ Sci e ciaspolate</div>
+<div class="highlight">♨️ Relax alle terme</div>
+</div>
+
+<div class="card">
+<h2>🗓️ Itinerario consigliato – 7 giorni</h2>
+<ul>
+<li>Giorno 1 – Castello di Fénis e borgo</li>
+<li>Giorno 2 – Visita alla città di Aosta</li>
+<li>Giorno 3 – Trekking nel Gran Paradiso</li>
+<li>Giorno 4 – Castelli di Issogne e Verrès</li>
+<li>Giorno 5 – Funivia Skyway Monte Bianco</li>
+<li>Giorno 6 – Relax alle Terme di Pré-Saint-Didier</li>
+<li>Giorno 7 – Degustazione vini valdostani</li>
+</ul>
+</div>
+
+<div class="card">
+<h2>🗺️ Mappa turistica</h2>
+<iframe class="map" src="https://maps.google.com/maps?q=fenis%20aosta&t=&z=13&ie=UTF8&iwloc=&output=embed"></iframe>
+</div>
+
+<div class="card">
+<h2>🌄 I luoghi più belli della Valle d'Aosta</h2>
+<ul>
+<li>Monte Bianco</li>
+<li>Val Ferret</li>
+<li>Lago Blu – Cervinia</li>
+<li>Gran Paradiso</li>
+<li>Courmayeur</li>
+<li>Forte di Bard</li>
+<li>Terme di Pré-Saint-Didier</li>
+</ul>
+</div>
+
+</div>
+
+<!-- CONSIGLI ENOGASTRONOMICI -->
+<div class="card" id="gastronomia">
+<h2>🍝 Consigli enogastronomici</h2>
+
+<div class="restaurant"><img src="ristorante1.jpg"><div><strong>La Chatelaine</strong><br>Cucina valdostana</div></div>
+<div class="restaurant"><img src="ristorante2.jpg"><div><strong>Comtes de Challant</strong><br>Ristorante tipico</div></div>
+<div class="restaurant"><img src="pizzeria.jpg"><div><strong>Pizzeria locale</strong></div></div>
+<div class="restaurant"><img src="gelateria.jpg"><div><strong>Gelateria artigianale</strong></div></div>
+<div class="restaurant"><img src="pasticceria.jpg"><div><strong>Pasticceria locale</strong></div></div>
+<div class="restaurant"><img src="formaggeria.jpg"><div><strong>Formaggeria valdostana</strong><br>Fontina DOP</div></div>
+
+</div>
+
+<!-- CHECKOUT -->
+<div class="card" id="checkout">
+<h2>✅ Check‑out checklist</h2>
+<ul>
+<li>Spegnere luci</li>
+<li>Chiudere finestre</li>
+<li>Buttare la spazzatura</li>
+<li>Lasciare le chiavi</li>
+</ul>
+</div>
+
+<!-- RECENSIONE -->
+<div class="card">
+<h2>⭐ Ti è piaciuto il soggiorno?</h2>
+<a class="button" href="#">Lascia recensione Airbnb</a>
+<a class="button" href="#">Lascia recensione Google</a>
+</div>
+
+</div>
+
+<footer>
+<p>Grazie per aver scelto il nostro appartamento ⭐</p>
+</footer>
+
+<script>
+function googleTranslateElementInit(){new google.translate.TranslateElement({pageLanguage:'it'},'google_translate_element');}
+</script>
+<script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+</body>
+</html>
