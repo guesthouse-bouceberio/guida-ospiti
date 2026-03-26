@@ -51,25 +51,19 @@ letter-spacing:0.5px;
   
 /* HEADER */
 
+/* HEADER */
+
 header{
 background:
-linear-gradient(rgba(20,40,35,0.55), rgba(20,40,35,0.55)),
-url('header.jpg') center/cover no-repeat;
+linear-gradient(rgba(9, 9, 9, 1), rgba(20,40,35,0.55)),
+url('header_transparent.png') center bottom/contain no-repeat;
 
-color:white;
-padding:30px 20px;
-text-align:center;
-
-min-height:140px;
+width:100%
 display:flex;
 flex-direction:column;
 justify-content:center;
 }
-
-header h1{
-font-size:34px;
-}
-
+  
 /* NAV */
 
 nav{
@@ -259,6 +253,15 @@ box-shadow:0 4px 10px rgba(0,0,0,0.3);
 z-index:1000;
 }
 
+/* LOGO */ 
+  .logo {
+  width: 450px;
+  height: auto;
+  object-fit: contain;
+  display: block;
+  margin: 0 auto;
+}
+  
 </style>
 
 </head>
@@ -267,11 +270,7 @@ z-index:1000;
 
 <header>
 
-<h1>🏡 Lo Bouc e lo Berio</h1>
-
-<p><b>A soli 2 minuti dal Castello di Fénis</b></p>
-
-<p>Appartamenti indipendenti, curati nei dettagli, ideali per una vacanza rilassante nel cuore della Valle d'Aosta</p>
+<img src="logo_transparent.png" class="logo">
 
 <nav>
 <a href="#wifi">Wi‑Fi</a>
@@ -293,12 +292,16 @@ z-index:1000;
 <!-- INTRO -->
 
 <div class="card">
-    <h2>Benvenuti a Lo Bouc e lo Berio</h2>
-    <p>
-      Goditi la tranquillità di un appartamento indipendente, con tutti i comfort moderni e a pochi minuti dalle principali attrazioni della Valle d'Aosta.
+    <h2>Benvenuti a Fénis</h2>
+    <p>Goditi la tranquillità di un appartamento indipendente, curato nei dettagli e con tutti i comfort moderni, <b>a soli 2 minuti dal Castello di Fénis</b>, ideale per una vacanza rilassante nel cuore della Valle d'Aosta.
       <br><br>
       Perfetto per coppie, famiglie o smart working in montagna.
       </p>
+
+    <p><b>✔ Posizione strategica<br>
+      ✔ Parcheggio comodo<br>
+      ✔ Wi-Fi veloce e Smart TV<br>
+      ✔ Self check-in semplice</b></p>
 
     <p>Rispondiamo entro pochi minuti su WhatsApp.</p>
 
