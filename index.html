@@ -159,23 +159,44 @@ transform:scale(1.03);
 
 /* BUTTON */
 
-.button{
-display:inline-block;
-padding:12px 22px;
-background:#2f5d50;
-color:white;
-text-decoration:none;
-border-radius:30px;
-margin:6px 4px;
-font-size:15px;
-font-weight:500;
-transition:0.3s;
-box-shadow:0 4px 12px rgba(0,0,0,0.15);
-}
+.button {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: #2f5d50;
+  color: white;
+  padding: 12px 22px;
+  text-decoration:none;
+  border-radius:30px;
+  margin:6px 4px;
+  font-size:15px;
+  font-weight:500;
+  transition:0.3s;
+  box-shadow:0 4px 12px rgba(0,0,0,0.15);
+  }
 
-.button:hover{
+  .button:hover{
 background:#1f3f35;
 transform:translateY(-2px);
+}
+  
+.button .icons {
+  display: flex;
+  gap: 8px;
+}
+
+.button a {
+  display: flex;
+}
+
+.button svg {
+  width: 22px;
+  height: 22px;
+  transition: transform 0.2s ease;
+}
+
+.button svg:hover {
+  transform: scale(1.15);
 }
 
 /* BADGE */
@@ -237,21 +258,59 @@ font-size:14px;
 color:#777;
 }
 
-/* WHATSAPP */
+/* CONTACT BOX */
 
-.whatsapp{
-position:fixed;
-bottom:20px;
-right:20px;
-background:#25D366;
-color:white;
-padding:14px 18px;
-border-radius:50px;
-font-size:16px;
-text-decoration:none;
-box-shadow:0 4px 10px rgba(0,0,0,0.3);
-z-index:1000;
+.contact-box {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #8CBDAA;
+  color: #333;
+  padding: 12px 16px;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column; /* 🔥 chiave */
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  z-index: 1000;
 }
+
+.contact-box .label {
+  font-size: 16px;
+}
+
+.icons {
+  display: flex;
+  gap: 12px;
+}
+
+.contact-box svg {
+  width: 28px;
+  height: 28px;
+  transition: transform 0.2s ease;
+}
+
+.contact-box svg:hover {
+  transform: scale(1.15);
+}
+
+/* PRENOTA SUBITO */
+
+.prenota-float{
+position:fixed;
+bottom:120px;
+right:20px;
+
+background:#2f5d50;
+color:white;
+padding:12px 16px;
+border-radius:30px;
+font-size:14px;
+text-decoration:none;
+
+box-shadow:0 4px 12px rgba(0,0,0,0.25);
+z-index:1000;
 
  /* LOGO */
  .logo {
@@ -268,6 +327,21 @@ z-index:1000;
   .logo {
     width: 70%;
   }
+}
+
+  /* SOCIAL LINK */
+  .social-links {
+  display: flex;
+  gap: 60px; 
+}
+  .social-links svg {
+  filter: drop-shadow(0 2px 3px rgba(0,0,0,0.2));
+  width: 36px;
+  height: 36px;
+}
+  .social-links svg:hover {
+  transform: scale(1.1);
+  transition: 0.2s;
 }
   
 </style>
