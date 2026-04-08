@@ -1,19 +1,33 @@
 <!DOCTYPE html>
 <html lang="it">
+
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Percorsi – Lo Bouc e lo Berio</title>
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<title>Percorsi – Lo Bouc e lo Berio</title>
 <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
 <link rel="icon" href="favicon.png" type="image/png">
+<style>
+
+   #map { height: 600px; }
+  
+/* HEADER */
+
+header{
+background:
+linear-gradient(rgba(9, 9, 9, 1), rgba(20,40,35,0.55)),
+url('header_transparent.png') center bottom/contain no-repeat;
+
+width:100%;
+display:flex;
+flex-direction:column;
+justify-content:center;
+}
 
   
-<style>
-body{margin:0;font-family:'Inter',sans-serif;display:flex;height:100vh;overflow:hidden}
+  /* BASE */
 
 body{
 font-family:'Inter', sans-serif;
@@ -31,115 +45,57 @@ background: linear-gradient(
 background-attachment: fixed;
 }
 
-h1, h2, h3{
+h1, h2{
 font-family:'Playfair Display', serif;
-letter-spacing:0.5px;
-}
-  
-/* HEADER */
-
-header{
-background:
-linear-gradient(rgba(9, 9, 9, 1), rgba(20,40,35,0.55)),
-url('header_transparent.png') center bottom/contain no-repeat;
-
-width:100%;
-display:flex;
-flex-direction:column;
-justify-content:center;
-}
-
-
-/* NAV */
-nav {
-  display: flex;
-  gap: 10px;
-  justify-content: center;
-  flex-wrap: wrap;
-  margin-top: 12px;
-}
-
-nav a {
-  text-decoration: none;
-  font-size: 14px;
-  /* font-weight: bold; */
-  color: #f5f5f5; /* 👈 testo chiaro */
-  text-shadow: 0 1px 3px rgba(0,0,0,0.3);
-  background: rgba(140, 189, 170, 0.5);
-  backdrop-filter: blur(8px);
-
-  padding: 10px 18px; /* leggermente più grande */
-  border-radius: 20px;
-
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-
-  box-shadow: 0 4px 10px rgba(0,0,0,0.3); /* stesso effetto */
-
-  transition: all 0.3s ease;
-}
-
-/* HOVER */
-nav a:hover {
-  transform: translateY(-2px);
-  background: #7aa895; /* leggermente più scuro */
-}
-
-/* TRADUTTORE PULITO */
-
-#google_translate_element{
-margin-top:15px;
 text-align:center;
-}
-
-.goog-logo-link {
-display:none !important;
-}
-
-.goog-te-gadget span {
-display:none !important;
-}
-
-.goog-te-gadget {
-color:transparent !important;
-}
-
-.goog-te-gadget select{
-padding:6px 10px;
-border-radius:8px;
-border:none;
-font-size:14px;
 }
 
 /* CONTAINER */
 
 .container{
-max-width:1000px;
+max-width:800px;
 margin:2px auto;
-padding:30px 20px;
+padding:20px;
+position:relative;
 }
 
 /* CARD */
 
-
-
-/* GALLERY */
-
-.gallery{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-gap:12px;
+.card{
+background:rgba(255,255,255,0.9);
+padding:24px;
+border-radius:16px;
+box-shadow:0 10px 28px rgba(0,0,0,0.1);
+margin-bottom:16px;
 }
 
-img{
-width:100%;
+/* FAQ */
+
+.faq-item{
+margin-bottom:12px;
 border-radius:12px;
-transition:0.3s;
+overflow:hidden;
 }
 
-img:hover{
-transform:scale(1.03);
+.faq-question{
+background:#2f5d50;
+color:white;
+padding:14px;
+cursor:pointer;
+font-weight:500;
+}
+
+.faq-answer{
+display:none;
+padding:14px;
+background:#f7f7f7;
+}
+
+/* CTA */
+
+.cta{
+text-align:center;
+margin-top:30px;
 }
 
 /* BUTTON */
@@ -183,64 +139,111 @@ transform:translateY(-2px);
 .button svg:hover {
   transform: scale(1.15);
 }
-  
-/* BADGE */
 
-.badge{
-background:#e3efe9;
-color:#2f5d50;
-padding:8px 14px;
-border-radius:20px;
-display:inline-block;
-margin:4px;
-font-size:13px;
-}
+/* TRADUTTORE PULITO */
 
-/* GRID */
-
-.grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
-gap:16px;
-}
-
-.place-card{
-background:#f9fbfd;
-padding:10px;
-border-radius:10px;
-}
-
-/* MAP */
-
-.map{
-width:100%;
-height:380px;
-border:0;
-border-radius:12px;
-}
-
-/* RISTORANTI */
-
-.restaurant{
-display:grid;
-grid-template-columns:110px 1fr;
-gap:12px;
-margin-bottom:14px;
-}
-
-.restaurant img{
-width:110px;
-height:90px;
-object-fit:cover;
-}
-
-/* FOOTER */
-
-footer{
+#google_translate_element{
+margin-top:15px;
 text-align:center;
-padding:30px;
+}
+
+.goog-logo-link {
+display:none !important;
+}
+
+.goog-te-gadget span {
+display:none !important;
+}
+
+.goog-te-gadget {
+color:transparent !important;
+}
+
+.goog-te-gadget select{
+padding:6px 10px;
+border-radius:8px;
+border:none;
 font-size:14px;
-color:#777;
+}
+
+/* PRENOTA SUBITO */
+
+.prenota-float{
+position:fixed;
+bottom:120px;
+right:20px;
+
+background:rgba(245, 101, 39, 0.8);
+color:white;
+padding:12px 16px;
+border-radius:30px;
+font-size:14px;
+text-decoration:none;
+
+box-shadow:0 4px 12px rgba(0,0,0,0.25);
+z-index:1000;
+
+/* animazioni */
+animation:
+fadeInUp 0.6s ease,
+pulseSoft 4s 1s infinite;
+
+transition:0.3s;
+}
+
+/* HOVER */
+.prenota-float:hover{
+background:#1f3f35;
+transform:translateY(-3px) scale(1.05);
+box-shadow:0 8px 18px rgba(0,0,0,0.35);
+
+/* ferma animazione */
+animation:none;
+}
+
+/* ENTRATA */
+@keyframes fadeInUp{
+from{
+opacity:0;
+transform:translateY(20px);
+}
+to{
+opacity:1;
+transform:translateY(0);
+}
+}
+
+/* PULSE */
+@keyframes pulseSoft {
+0%{
+transform:scale(1);
+box-shadow:0 4px 12px rgba(0,0,0,0.25);
+}
+50%{
+transform:scale(1.05);
+box-shadow:0 8px 20px rgba(0,0,0,0.35);
+}
+100%{
+transform:scale(1);
+box-shadow:0 4px 12px rgba(0,0,0,0.25);
+}
+}
+  
+  /* LOGO */
+ .logo {
+  width: 33%;
+  max-width: 1536px;
+  height: auto;
+  object-fit: contain;
+  display: block;
+  margin: 0 auto;
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+  .logo {
+    width: 70%;
+  }
 }
 
 /* CONTACT BOX */
@@ -297,86 +300,6 @@ color:#777;
   opacity: 0.85;
 }
 
-/* PRENOTA SUBITO */
-
-.prenota-float{
-position:fixed;
-bottom:120px;
-right:20px;
-
-background:#2f5d50;
-color:white;
-padding:12px 16px;
-border-radius:30px;
-font-size:14px;
-text-decoration:none;
-
-box-shadow:0 4px 12px rgba(0,0,0,0.25);
-z-index:1000;
-
-/* animazioni */
-animation:
-fadeInUp 0.6s ease,
-pulseSoft 4s 1s infinite;
-
-transition:0.3s;
-}
-
-/* HOVER */
-.prenota-float:hover{
-background:#1f3f35;
-transform:translateY(-3px) scale(1.05);
-box-shadow:0 8px 18px rgba(0,0,0,0.35);
-
-/* ferma animazione */
-animation:none;
-}
-
-/* ENTRATA */
-@keyframes fadeInUp{
-from{
-opacity:0;
-transform:translateY(20px);
-}
-to{
-opacity:1;
-transform:translateY(0);
-}
-}
-
-/* PULSE */
-@keyframes pulseSoft {
-0%{
-transform:scale(1);
-box-shadow:0 4px 12px rgba(0,0,0,0.25);
-}
-50%{
-transform:scale(1.05);
-box-shadow:0 8px 20px rgba(0,0,0,0.35);
-}
-100%{
-transform:scale(1);
-box-shadow:0 4px 12px rgba(0,0,0,0.25);
-}
-}
-
-  /* LOGO */
- .logo {
-  width: 33%;
-  max-width: 1536px;
-  height: auto;
-  object-fit: contain;
-  display: block;
-  margin: 0 auto;
-}
-
-/* MOBILE */
-@media (max-width: 768px) {
-  .logo {
-    width: 70%;
-  }
-}
-
 /* SOCIAL LINK */
   .social-links {
   display: flex;
@@ -391,155 +314,61 @@ box-shadow:0 4px 12px rgba(0,0,0,0.25);
   transform: scale(1.1);
   transition: 0.2s;
 }
+  /* FOOTER */
 
-/* LISTA ATTIVITÀ */
-
-.attivita-list {
-  list-style: none;
-  padding: 0;
-  margin-top: 15px;
-}
-
-.attivita-list li {
-  padding: 14px 0;
-  border-bottom: 1px solid rgba(0,0,0,0.08);
-  position: relative;
-  padding-left: 30px;
-}
-
-.attivita-list li:last-child {
-  border-bottom: none;
-}
-
-/* ❄️ Fiocco di neve */
-.attivita-list li::before {
-  content: "❄";
-  color: #7daea3;
-  position: absolute;
-  left: 0;
-  top: 14px;
-  font-size: 14px;
-}
-
-/* Titolo attività */
-.attivita-titolo {
-  color: #2f5d50;
-  font-weight: 600;
-  font-size: 1.05em;
-  display: block;
-  margin-bottom: 4px;
-}
-
-/* Descrizione */
-.attivita-descrizione {
-  font-size: 0.95em;
-  line-height: 1.5;
-  color: #555;
-}
-
-/* Titolo sezione con icona */
-.attivita-card h2 {
-  color: #2f5d50;
-  margin-bottom: 10px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-  .attivita-intro {
-  color: #3f6f63;       /* verde alpino più soft del titolo */
-  font-size: 0.9em;    /* leggermente più piccolo dei titoli */
-  line-height: 1.5;
-  margin: 10px 0 15px 0;
-}
-
-/* VAI AL SITO */
-  .link-elegante {
-  font-size: 0.85em;
-  color: #6b6b6b;
-  text-decoration: none;
-  position: relative;
-  display: inline-block;
-  margin-top: 6px;
-  letter-spacing: 0.3px;
-  transition: color 0.25s ease;
-}
-
-/* linea sottile animata */
-.link-elegante::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: -2px;
-  width: 0%;
-  height: 1px;
-  background-color: #2f5d50;
-  transition: width 0.25s ease;
-}
-
-.link-elegante:hover {
-  color: #2f5d50;
-}
-
-.link-elegante:hover::after {
-  width: 100%;
+footer{
+text-align:center;
+padding:30px;
+font-size:14px;
+color:#777;
 }
   
-
-  
-  
-#sidebar{
-width:35%;
-overflow-y:auto;
-background:#ffffff;
-padding:20px;
-box-shadow:2px 0 10px rgba(0,0,0,0.1);
-}
-
-#map{width:65%;height:100%}
-
-
-
-.card{padding:15px;border-radius:12px;margin-bottom:10px;background:#f7f7f7;cursor:pointer;transition:0.3s}
-.card.active{outline:3px solid #2f5d50;transform:scale(1.02)}
-
-.card:hover{background:#eee}
-
-.filters{margin-bottom:15px}
-
-img{max-width:100%;border-radius:8px;margin-top:8px}
-
 </style>
+
 </head>
 
 <body>
 
-<div id="sidebar">
-<h1>Percorsi</h1>
+<header>
 
-<div class="filters">
-<select id="filtro-tipo" onchange="filtra()">
+<img src="nuovo_logo.png" class="logo">
 
-<script src="//translate.
-<option value="">Tipo</option>
-<option value="trekking">Trekking</option>
-<option value="mtb">MTB</option>
-<option value="strada">Strada</option>
-</select>
 
-<select id="filtro-diff" onchange="filtra()">
-<option value="">Difficoltà</option>
-<option value="Facile">Facile</option>
-<option value="Media">Media</option>
-<option value="Difficile">Difficile</option>
-</select>
-</div>
+<div id="google_translate_element"></div>
 
-<div id="lista"></div>
-</div>
+</header>
+  
+<div class="container">
 
+<div id="google_translate_element"></div>
+
+  
+  <h1>I nostri percorsi ciclo-pedonali</h1>
 <div id="map"></div>
 
+<div class="card">
+
+<div class="faq-item">
+<div class="faq-question"><span class="attivita-titolo">🥾 Trekking 1 (Livello difficoltà)</span></div>
+<div class="faq-answer">
+.....
+</div>
+</div>
+
+<div class="faq-item">
+<div class="faq-question"><span class="attivita-titolo">🚵‍♂️ MTB 1 (Livello difficoltà)</span></div>
+<div class="faq-answer">
+.....
+</div>
+</div>
+  
+<div class="faq-item">
+<div class="faq-question"><span class="attivita-titolo">🚴‍♂️ Bici da strada 1 (Livello difficoltà)</span></div>
+<div class="faq-answer">
+.....
+</div>
+</div>
+  
 
 <div class="cta">
 <p>Non hai trovato quello che cercavi?</p>
@@ -712,101 +541,27 @@ function googleTranslateElementInit() {
 
 <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
-  
-<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 <script src="https://unpkg.com/leaflet-gpx/gpx.js"></script>
 
 <script>
+  var map = L.map('map').setView([45.4642, 9.19], 10);
 
-var map = L.map('map');
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; OpenStreetMap'
+  }).addTo(map);
 
-var colori={trekking:'green',mtb:'red',strada:'blue'};
-var layers={};
-var selected=null;
-var group=L.featureGroup().addTo(map);
-
-var percorsi=[
-{id:'p1',nome:'🥾 Trekking 1',tipo:'trekking',file:'trekking1.gpx',difficolta:'Facile',immagini:['img1.jpg']},
-{id:'p2',nome:'🚵 MTB 1',tipo:'mtb',file:'mtb1.gpx',difficolta:'Media',immagini:['img2.jpg']}
-];
-
-percorsi.forEach(p=>{
-
-var gpx=new L.GPX(p.file,{async:true,polyline_options:{color:colori[p.tipo],weight:4}})
-
-.on('loaded',function(e){
-var dist=(e.target.get_distance()/1000).toFixed(1);
-var elev=e.target.get_elevation_gain().toFixed(0);
-
-p.dist=dist; p.elev=elev;
-
-updateCard(p);
-
- gpx.bindPopup(`<b>${p.nome}</b><br>${dist} km • ${elev} m<br><img src="${p.immagini[0]}" width="120">`);
-
- group.addLayer(e.target);
- map.fitBounds(group.getBounds());
-})
-
-.on('click',function(e){select(p.id,e.target)})
-.on('mouseover',e=>e.target.setStyle({weight:6}))
-.on('mouseout',e=>{if(e.target!==selected)e.target.setStyle({weight:4})})
-
-.addTo(map);
-
-layers[p.id]=gpx;
-
-createCard(p);
-
-});
-
-function createCard(p){
-var el=document.createElement('div');
-el.className='card';
-el.id=p.id;
-el.onclick=()=>select(p.id);
-el.innerHTML=`<b>${p.nome}</b><div id="info-${p.id}">Caricamento...</div>`;
-document.getElementById('lista').appendChild(el);
-}
-
-function updateCard(p){
-document.getElementById('info-'+p.id).innerHTML=`${p.dist} km • ${p.elev} m<br>${p.difficolta}`;
-}
-
-function select(id,layer=null){
-if(selected) selected.setStyle({weight:4});
-if(layer){layer.setStyle({weight:8});selected=layer;map.fitBounds(layer.getBounds());}
-
- document.querySelectorAll('.card').forEach(c=>c.classList.remove('active'));
- document.getElementById(id).classList.add('active');
-
- history.replaceState(null,null,'#'+id);
-}
-
-function filtra(){
-var tipo=document.getElementById('filtro-tipo').value;
-var diff=document.getElementById('filtro-diff').value;
-
-percorsi.forEach(p=>{
-var show=true;
-if(tipo && p.tipo!==tipo) show=false;
-if(diff && p.difficolta!==diff) show=false;
-
- document.getElementById(p.id).style.display=show?'block':'none';
- if(show) map.addLayer(layers[p.id]); else map.removeLayer(layers[p.id]);
-});
-}
-
-// deep link
-window.onload=()=>{
-var id=location.hash.replace('#','');
-if(id && layers[id]){
- setTimeout(()=>select(id,layers[id]),1000);
-}
-}
+  new L.GPX('percorsi/lago-di-como.gpx', {
+    async: true,
+    marker_options: {
+      startIconUrl: null,
+      endIconUrl: null
+    }
+  }).on('loaded', function(e) {
+    map.fitBounds(e.target.getBounds());
+  }).addTo(map);
 
 </script>
-
+  
 </body>
 </html>
