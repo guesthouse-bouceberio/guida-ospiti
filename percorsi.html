@@ -54,6 +54,48 @@ display:block;
 margin:0 auto;
 }
 
+  /* BUTTON */
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: #2f5d50;
+  color: white;
+  padding: 12px 22px;
+  text-decoration:none;
+  border-radius:30px;
+  margin:6px 4px;
+  font-size:15px;
+  font-weight:500;
+  transition:0.3s;
+  box-shadow:0 4px 12px rgba(0,0,0,0.15);
+  }
+
+  .button:hover{
+background:#1f3f35;
+transform:translateY(-2px);
+}
+  
+.button .icons {
+  display: flex;
+  gap: 8px;
+}
+
+.button a {
+  display: flex;
+}
+
+.button svg {
+  width: 22px;
+  height: 22px;
+  transition: transform 0.2s ease;
+}
+
+.button svg:hover {
+  transform: scale(1.15);
+}
+  
 /* TRADUTTORE PULITO */
 
 #google_translate_element{
