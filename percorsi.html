@@ -6,562 +6,275 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Percorsi – Lo Bouc e lo Berio</title>
+
 <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
-<link rel="icon" href="favicon.png" type="image/png">
+
 <style>
 
-   #map { height: 600px; }
-  
-/* HEADER */
-
-header{
-background:
-linear-gradient(rgba(9, 9, 9, 1), rgba(20,40,35,0.55)),
-url('header_transparent.png') center bottom/contain no-repeat;
-
-width:100%;
-display:flex;
-flex-direction:column;
-justify-content:center;
-}
-
-  
-  /* BASE */
+/* ==== TUO STILE ORIGINALE ==== */
 
 body{
 font-family:'Inter', sans-serif;
 margin:0;
 color:#333;
-
-background: linear-gradient(
-  to bottom,
-  #bcd8cc 0%,
-  #8fb3a3 30%,
-  #d6cec2 70%,
-  #b8aea0 100%
-);
-
+background: linear-gradient(to bottom,#bcd8cc 0%,#8fb3a3 30%,#d6cec2 70%,#b8aea0 100%);
 background-attachment: fixed;
 }
 
-h1, h2{
-font-family:'Playfair Display', serif;
-text-align:center;
+header{
+background:
+linear-gradient(rgba(9,9,9,1), rgba(20,40,35,0.55)),
+url('header_transparent.png') center bottom/contain no-repeat;
+display:flex;
+flex-direction:column;
+align-items:center;
+padding:20px;
 }
 
-/* CONTAINER */
+.logo{
+width:33%;
+max-width:1536px;
+}
 
 .container{
-max-width:800px;
-margin:2px auto;
+max-width:900px;
+margin:auto;
 padding:20px;
-position:relative;
 }
 
-/* CARD */
+h1{font-family:'Playfair Display';text-align:center}
 
-.card{
-background:rgba(255,255,255,0.9);
-padding:24px;
+#map{
+height:500px;
 border-radius:16px;
-box-shadow:0 10px 28px rgba(0,0,0,0.1);
-margin-bottom:16px;
+margin-bottom:20px;
 }
 
-/* FAQ */
+/* ==== NUOVA SIDEBAR ADATTATA ==== */
 
-.faq-item{
-margin-bottom:12px;
-border-radius:12px;
-overflow:hidden;
-}
-
-.faq-question{
-background:#2f5d50;
-color:white;
-padding:14px;
-cursor:pointer;
-font-weight:500;
-}
-
-.faq-answer{
-display:none;
-padding:14px;
-background:#f7f7f7;
-}
-
-/* CTA */
-
-.cta{
-text-align:center;
-margin-top:30px;
-}
-
-/* BUTTON */
-
-.button {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  background: #2f5d50;
-  color: white;
-  padding: 12px 22px;
-  text-decoration:none;
-  border-radius:30px;
-  margin:6px 4px;
-  font-size:15px;
-  font-weight:500;
-  transition:0.3s;
-  box-shadow:0 4px 12px rgba(0,0,0,0.15);
-  }
-
-  .button:hover{
-background:#1f3f35;
-transform:translateY(-2px);
-}
-  
-.button .icons {
-  display: flex;
-  gap: 8px;
-}
-
-.button a {
-  display: flex;
-}
-
-.button svg {
-  width: 22px;
-  height: 22px;
-  transition: transform 0.2s ease;
-}
-
-.button svg:hover {
-  transform: scale(1.15);
-}
-
-/* TRADUTTORE PULITO */
-
-#google_translate_element{
-margin-top:15px;
+.filters{
+margin-bottom:15px;
 text-align:center;
 }
 
-.goog-logo-link {
-display:none !important;
-}
-
-.goog-te-gadget span {
-display:none !important;
-}
-
-.goog-te-gadget {
-color:transparent !important;
-}
-
-.goog-te-gadget select{
-padding:6px 10px;
+select{
+padding:8px;
+margin:5px;
 border-radius:8px;
 border:none;
-font-size:14px;
 }
 
-/* PRENOTA SUBITO */
+.lista{
+margin-top:10px;
+}
 
-.prenota-float{
-position:fixed;
-bottom:120px;
-right:20px;
-
-background:rgba(245, 101, 39, 0.8);
-color:white;
-padding:12px 16px;
-border-radius:30px;
-font-size:14px;
-text-decoration:none;
-
-box-shadow:0 4px 12px rgba(0,0,0,0.25);
-z-index:1000;
-
-/* animazioni */
-animation:
-fadeInUp 0.6s ease,
-pulseSoft 4s 1s infinite;
-
+.card-percorso{
+background:#f7f7f7;
+padding:15px;
+border-radius:12px;
+margin-bottom:10px;
+cursor:pointer;
 transition:0.3s;
 }
 
-/* HOVER */
-.prenota-float:hover{
-background:#1f3f35;
-transform:translateY(-3px) scale(1.05);
-box-shadow:0 8px 18px rgba(0,0,0,0.35);
-
-/* ferma animazione */
-animation:none;
+.card-percorso.active{
+outline:3px solid #2f5d50;
+transform:scale(1.02);
 }
 
-/* ENTRATA */
-@keyframes fadeInUp{
-from{
-opacity:0;
-transform:translateY(20px);
-}
-to{
-opacity:1;
-transform:translateY(0);
-}
+.card-percorso:hover{
+background:#eee;
 }
 
-/* PULSE */
-@keyframes pulseSoft {
-0%{
-transform:scale(1);
-box-shadow:0 4px 12px rgba(0,0,0,0.25);
-}
-50%{
-transform:scale(1.05);
-box-shadow:0 8px 20px rgba(0,0,0,0.35);
-}
-100%{
-transform:scale(1);
-box-shadow:0 4px 12px rgba(0,0,0,0.25);
-}
-}
-  
-  /* LOGO */
- .logo {
-  width: 33%;
-  max-width: 1536px;
-  height: auto;
-  object-fit: contain;
-  display: block;
-  margin: 0 auto;
-}
-
-/* MOBILE */
-@media (max-width: 768px) {
-  .logo {
-    width: 70%;
-  }
-}
-
-/* CONTACT BOX */
-
-.contact-box {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  
-  background: #8CBDAA; /* pieno, niente trasparenza */
-  color: #f5f5f5; /* testo chiaro */
-
-  padding: 12px 16px;
-  border: 1px solid rgba(255,255,255,0.2);
-  border-radius: 20px;
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-
-  box-shadow: 0 6px 18px rgba(0,0,0,0.25); /* più morbida e moderna */
-  z-index: 1000;
-
-  font-weight: 500; /* più leggibile di 300 */
-}
-
-/* LABEL */
-.contact-box .label {
-  font-size: 15px;
-  font-weight: 600; /* leggermente più importante */
-  text-align: center;
-}
-
-/* ICONS CONTAINER */
-.icons {
-  display: flex;
-  gap: 14px;
-}
-
-/* ICONE */
-.contact-box svg {
-  width: 28px;
-  height: 28px;
-
-  fill: #f5f5f5; /* 👈 icone chiare */
-
-  transition: transform 0.2s ease, opacity 0.2s ease;
-}
-
-/* HOVER */
-.contact-box svg:hover {
-  transform: scale(1.15);
-  opacity: 0.85;
-}
-
-/* SOCIAL LINK */
-  .social-links {
-  display: flex;
-  gap: 60px; 
-}
-  .social-links svg {
-  filter: drop-shadow(0 2px 3px rgba(0,0,0,0.2));
-  width: 36px;
-  height: 36px;
-}
-  .social-links svg:hover {
-  transform: scale(1.1);
-  transition: 0.2s;
-}
-  /* FOOTER */
-
+/* footer */
 footer{
 text-align:center;
 padding:30px;
 font-size:14px;
 color:#777;
 }
-  
-</style>
 
+</style>
 </head>
 
 <body>
 
 <header>
-
 <img src="nuovo_logo.png" class="logo">
-
-
 <div id="google_translate_element"></div>
-
 </header>
-  
+
 <div class="container">
 
-<div id="google_translate_element"></div>
+<h1>I nostri percorsi ciclo-pedonali</h1>
 
-  
-  <h1>I nostri percorsi ciclo-pedonali</h1>
 <div id="map"></div>
 
 <div class="card">
 
-<div class="faq-item">
-<div class="faq-question"><span class="attivita-titolo">🥾 Trekking 1 (Livello difficoltà)</span></div>
-<div class="faq-answer">
-.....
+<div class="filters">
+<select id="filtro-tipo" onchange="filtra()">
+<option value="">Tipo</option>
+<option value="trekking">Trekking</option>
+<option value="mtb">MTB</option>
+<option value="strada">Strada</option>
+</select>
+
+<select id="filtro-diff" onchange="filtra()">
+<option value="">Difficoltà</option>
+<option value="Facile">Facile</option>
+<option value="Media">Media</option>
+<option value="Difficile">Difficile</option>
+</select>
 </div>
-</div>
 
-<div class="faq-item">
-<div class="faq-question"><span class="attivita-titolo">🚵‍♂️ MTB 1 (Livello difficoltà)</span></div>
-<div class="faq-answer">
-.....
-</div>
-</div>
-  
-<div class="faq-item">
-<div class="faq-question"><span class="attivita-titolo">🚴‍♂️ Bici da strada 1 (Livello difficoltà)</span></div>
-<div class="faq-answer">
-.....
-</div>
-</div>
-  
+<div id="lista" class="lista"></div>
 
-<div class="cta">
-<p>Non hai trovato quello che cercavi?</p>
-
-<div class="button">
-  <span class="text">Chiedi info su:</span>
-
-  <div class="icons">
-    <!-- WhatsApp -->
-    <a href="https://wa.me/393277817829?text=Buongiorno,__" target="_blank" title="Scrivi su WhatsApp">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="40" height="40">
-  <!-- vignetta con bordo bianco -->
-  <path 
-    d="M16 3C9.4 3 4 8.2 4 14.6c0 2.5.8 4.9 2.3 6.9L5 29l7.7-1.3c1.9 1 4.1 1.5 6.3 1.5 6.6 0 12-5.2 12-11.6S22.6 3 16 3z"
-    fill="#25D366"
-    stroke="#ffffff"
-    stroke-width="2"
-    stroke-linejoin="round"
-  />
-  
-  <!-- telefono -->
-  <path fill="#ffffff" d="M22.2 18.4c-.3-.2-1.8-.9-2.1-1-.3-.1-.5-.2-.7.2-.2.3-.8 1-1 1.2-.2.2-.4.2-.7.1-.3-.2-1.3-.5-2.5-1.6-.9-.8-1.5-1.7-1.7-2-.2-.3 0-.5.2-.7.2-.2.3-.4.5-.6.2-.2.2-.4.3-.6.1-.2 0-.4 0-.6 0-.2-.7-1.8-1-2.4-.3-.6-.6-.5-.8-.5h-.7c-.2 0-.6.1-.9.4-.3.3-1.2 1.2-1.2 3s1.3 3.6 1.5 3.8c.2.2 2.6 4.2 6.5 5.9 1 .4 1.7.7 2.3.8 1 .2 1.9.2 2.6-.1.8-.2 2.3-1 2.6-1.9.3-.9.3-1.7.2-1.9-.1-.2-.3-.3-.6-.5z"/>
-</svg>
-    </a>
-
-    <!-- Telegram -->
-    <a href="https://t.me/bouceberio" target="_blank">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" width="40" height="40">
-  <!-- cerchio -->
-  <circle cx="120" cy="120" r="120" fill="#29A9EA"/>
-  
-  <!-- aeroplanino -->
-  <path fill="#ffffff" d="M180 72L62 118c-4 2-4 6 0 7l30 9 12 36c1 3 3 4 5 2l18-18 30 22c4 2 7 1 8-4l20-92c1-5-2-8-5-6z"/>
-  
-  <!-- dettaglio piega -->
-  <path fill="#dfefff" d="M104 140l4 28c1 3 2 3 4 1l10-10-18-19z"/>
-</svg>
-    </a>
-
-    <!-- Signal -->
-    <a href="https://signal.me/#p/+393277817829" target="_blank">
-     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="40" height="40">
-
-  <!-- tratteggio esterno (stessa forma, scalata) -->
-  <path
-    d="M12 4c-4.3 0-7.8 3.2-7.8 7.2 0 1.8.7 3.5 2 4.8L5.5 20l3.9-1.2c1.1.4 2.3.6 3.5.6 4.3 0 7.8-3.2 7.8-7.2S16.3 4 12 4z"
-    fill="none"
-    stroke="#3A76F0"
-    stroke-width="1.5"
-    stroke-dasharray="2.5 2.5"
-    stroke-linejoin="round"
-    transform="scale(1.15) translate(-1.8 -1.8)"
-  />
-
-  <!-- vignetta con bordo bianco -->
-  <path
-    d="M12 4c-4.3 0-7.8 3.2-7.8 7.2 0 1.8.7 3.5 2 4.8L5.5 20l3.9-1.2c1.1.4 2.3.6 3.5.6 4.3 0 7.8-3.2 7.8-7.2S16.3 4 12 4z"
-    fill="#3A76F0"
-    stroke="#ffffff"
-    stroke-width="1.5"
-    stroke-linejoin="round"
-  />
-
-</svg>
-    </a>
-  </div>
 </div>
 
 </div>
- 
-  <div class="contact-box">
-  <span class="label">💬 Scrivici</span>
 
-  <div class="icons">
-    <!-- WhatsApp -->
-    <a href="https://wa.me/393277817829?text=Buongiorno,__" target="_blank">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="40" height="40">
-  <!-- vignetta con bordo bianco -->
-  <path 
-    d="M16 3C9.4 3 4 8.2 4 14.6c0 2.5.8 4.9 2.3 6.9L5 29l7.7-1.3c1.9 1 4.1 1.5 6.3 1.5 6.6 0 12-5.2 12-11.6S22.6 3 16 3z"
-    fill="#25D366"
-    stroke="#ffffff"
-    stroke-width="2"
-    stroke-linejoin="round"
-  />
-  
-  <!-- telefono -->
-  <path fill="#ffffff" d="M22.2 18.4c-.3-.2-1.8-.9-2.1-1-.3-.1-.5-.2-.7.2-.2.3-.8 1-1 1.2-.2.2-.4.2-.7.1-.3-.2-1.3-.5-2.5-1.6-.9-.8-1.5-1.7-1.7-2-.2-.3 0-.5.2-.7.2-.2.3-.4.5-.6.2-.2.2-.4.3-.6.1-.2 0-.4 0-.6 0-.2-.7-1.8-1-2.4-.3-.6-.6-.5-.8-.5h-.7c-.2 0-.6.1-.9.4-.3.3-1.2 1.2-1.2 3s1.3 3.6 1.5 3.8c.2.2 2.6 4.2 6.5 5.9 1 .4 1.7.7 2.3.8 1 .2 1.9.2 2.6-.1.8-.2 2.3-1 2.6-1.9.3-.9.3-1.7.2-1.9-.1-.2-.3-.3-.6-.5z"/>
-</svg>
-    </a>
-
-    <!-- Telegram -->
-    <a href="https://t.me/bouceberio" target="_blank">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" width="40" height="40">
-  <!-- cerchio -->
-  <circle cx="120" cy="120" r="120" fill="#29A9EA"/>
-  
-  <!-- aeroplanino -->
-  <path fill="#ffffff" d="M180 72L62 118c-4 2-4 6 0 7l30 9 12 36c1 3 3 4 5 2l18-18 30 22c4 2 7 1 8-4l20-92c1-5-2-8-5-6z"/>
-  
-  <!-- dettaglio piega -->
-  <path fill="#dfefff" d="M104 140l4 28c1 3 2 3 4 1l10-10-18-19z"/>
-</svg>
-    </a>
-
-    <!-- Signal -->
-    <a href="https://signal.me/#p/+393277817829" target="_blank">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="40" height="40">
-
-  <!-- tratteggio esterno (stessa forma, scalata) -->
-  <path
-    d="M12 4c-4.3 0-7.8 3.2-7.8 7.2 0 1.8.7 3.5 2 4.8L5.5 20l3.9-1.2c1.1.4 2.3.6 3.5.6 4.3 0 7.8-3.2 7.8-7.2S16.3 4 12 4z"
-    fill="none"
-    stroke="#3A76F0"
-    stroke-width="1.5"
-    stroke-dasharray="2.5 2.5"
-    stroke-linejoin="round"
-    transform="scale(1.15) translate(-1.8 -1.8)"
-  />
-
-  <!-- vignetta con bordo bianco -->
-  <path
-    d="M12 4c-4.3 0-7.8 3.2-7.8 7.2 0 1.8.7 3.5 2 4.8L5.5 20l3.9-1.2c1.1.4 2.3.6 3.5.6 4.3 0 7.8-3.2 7.8-7.2S16.3 4 12 4z"
-    fill="#3A76F0"
-    stroke="#ffffff"
-    stroke-width="1.5"
-    stroke-linejoin="round"
-  />
-
-</svg>
-    </a>
-  </div>
-</div>
-  
-<a class="prenota-float" href="https://guesthouse-bouceberio.github.io/website/" target="_blank">
-🏡 Vai al nostro sito
-</a>
-
-  <footer>
-<p><p>
-Appartamenti vacanze a Fénis, vicino al Castello di Fénis, ideali per visitare la Valle d'Aosta e soggiornare in una posizione tranquilla e strategica.
-</p></p>
-  
+<footer>
+Appartamenti vacanze a Fénis, vicino al Castello di Fénis.
 </footer>
-  
-  <script>
 
-/* apertura/chiusura FAQ */
-document.querySelectorAll('.faq-question').forEach(item => {
-  item.addEventListener('click', () => {
-    const answer = item.nextElementSibling;
-    answer.style.display = answer.style.display === 'block' ? 'none' : 'block';
-  });
+<!-- SCRIPT -->
+
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script src="https://unpkg.com/leaflet-gpx/gpx.js"></script>
+
+<script>
+
+/* MAPPA */
+
+var map = L.map('map');
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+
+var colori={trekking:'green',mtb:'red',strada:'blue'};
+var layers={};
+var selected=null;
+var group=L.featureGroup().addTo(map);
+
+/* PERCORSI */
+
+var percorsi=[
+{id:'p1',nome:'🥾 Trekking 1',tipo:'trekking',file:'percorsi/trekking1.gpx',difficolta:'Facile',immagini:['img1.jpg']},
+{id:'p2',nome:'🚵 MTB 1',tipo:'mtb',file:'percorsi/mtb1.gpx',difficolta:'Media',immagini:['img2.jpg']}
+];
+
+/* CREAZIONE */
+
+percorsi.forEach(p=>{
+
+var gpx=new L.GPX(p.file,{
+async:true,
+polyline_options:{color:colori[p.tipo],weight:4}
+})
+
+.on('loaded',function(e){
+
+var dist=(e.target.get_distance()/1000).toFixed(1);
+var elev=e.target.get_elevation_gain().toFixed(0);
+
+p.dist=dist;
+p.elev=elev;
+
+updateCard(p);
+
+gpx.bindPopup(`<b>${p.nome}</b><br>${dist} km • ${elev} m<br><img src="${p.immagini[0]}" width="120">`);
+
+group.addLayer(e.target);
+map.fitBounds(group.getBounds());
+})
+
+.on('click',function(e){select(p.id,e.target)})
+.on('mouseover',e=>e.target.setStyle({weight:6}))
+.on('mouseout',e=>{if(e.target!==selected)e.target.setStyle({weight:4})})
+
+.addTo(map);
+
+layers[p.id]=gpx;
+
+createCard(p);
+
 });
+
+/* CARD UI */
+
+function createCard(p){
+var el=document.createElement('div');
+el.className='card-percorso';
+el.id=p.id;
+el.onclick=()=>select(p.id);
+el.innerHTML=`<b>${p.nome}</b><div id="info-${p.id}">Caricamento...</div>`;
+document.getElementById('lista').appendChild(el);
+}
+
+function updateCard(p){
+document.getElementById('info-'+p.id).innerHTML=
+`${p.dist} km • ${p.elev} m<br>${p.difficolta}`;
+}
+
+/* SELEZIONE */
+
+function select(id,layer=null){
+if(selected) selected.setStyle({weight:4});
+
+if(layer){
+layer.setStyle({weight:8});
+selected=layer;
+map.fitBounds(layer.getBounds());
+}
+
+document.querySelectorAll('.card-percorso')
+.forEach(c=>c.classList.remove('active'));
+
+document.getElementById(id).classList.add('active');
+
+history.replaceState(null,null,'#'+id);
+}
+
+/* FILTRI */
+
+function filtra(){
+var tipo=document.getElementById('filtro-tipo').value;
+var diff=document.getElementById('filtro-diff').value;
+
+percorsi.forEach(p=>{
+var show=true;
+
+if(tipo && p.tipo!==tipo) show=false;
+if(diff && p.difficolta!==diff) show=false;
+
+document.getElementById(p.id).style.display=show?'block':'none';
+
+if(show) map.addLayer(layers[p.id]);
+else map.removeLayer(layers[p.id]);
+});
+}
+
+/* DEEP LINK */
+
+window.onload=()=>{
+var id=location.hash.replace('#','');
+if(id && layers[id]){
+setTimeout(()=>select(id,layers[id]),1000);
+}
+};
 
 </script>
 
-  
 <script>
 function googleTranslateElementInit() {
-  new google.translate.TranslateElement(
-    {
-      pageLanguage: 'it',
-      includedLanguages: 'en,fr,de,nl,zh-CN,ru,ja'
-    },
-    'google_translate_element'
-  );
+new google.translate.TranslateElement(
+{pageLanguage:'it'},
+'google_translate_element'
+);
 }
 </script>
 
 <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
-  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-<script src="https://unpkg.com/leaflet-gpx/gpx.js"></script>
-
-<script>
-  var map = L.map('map').setView([45.4642, 9.19], 10);
-
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; OpenStreetMap'
-  }).addTo(map);
-
-  new L.GPX('percorsi/lago-di-como.gpx', {
-    async: true,
-    marker_options: {
-      startIconUrl: null,
-      endIconUrl: null
-    }
-  }).on('loaded', function(e) {
-    map.fitBounds(e.target.getBounds());
-  }).addTo(map);
-
-</script>
-  
 </body>
 </html>
