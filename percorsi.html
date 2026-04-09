@@ -8,11 +8,13 @@
 <title>Percorsi – Lo Bouc e lo Berio</title>
 
 <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+<link rel="stylesheet" href="https://unpkg.com/leaflet-elevation/dist/leaflet-elevation.min.css"/>
+
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
 
 <style>
 
-/* ==== TUO STILE ORIGINALE ==== */
+/* ===== TUO STILE ORIGINALE ===== */
 
 body{
 font-family:'Inter', sans-serif;
@@ -26,53 +28,48 @@ header{
 background:
 linear-gradient(rgba(9,9,9,1), rgba(20,40,35,0.55)),
 url('header_transparent.png') center bottom/contain no-repeat;
+width:100%;
 display:flex;
 flex-direction:column;
-align-items:center;
-padding:20px;
+justify-content:center;
 }
 
 .logo{
 width:33%;
-max-width:1536px;
+display:block;
+margin:0 auto;
 }
 
+/* MOBILE LOGO */
+@media (max-width:768px){
+.logo{width:70%}
+}
+
+/* CONTAINER */
 .container{
-max-width:900px;
+max-width:800px;
 margin:auto;
 padding:20px;
 }
 
-h1{font-family:'Playfair Display';text-align:center}
-
+/* MAPPA */
 #map{
 height:500px;
 border-radius:16px;
+margin-bottom:15px;
+}
+
+/* GRAFICO */
+#elevation{
+height:120px;
 margin-bottom:20px;
 }
 
-/* ==== NUOVA SIDEBAR ADATTATA ==== */
-
-.filters{
-margin-bottom:15px;
-text-align:center;
-}
-
-select{
-padding:8px;
-margin:5px;
-border-radius:8px;
-border:none;
-}
-
-.lista{
-margin-top:10px;
-}
-
+/* CARD LISTA */
 .card-percorso{
-background:#f7f7f7;
-padding:15px;
-border-radius:12px;
+background:rgba(255,255,255,0.9);
+padding:20px;
+border-radius:16px;
 margin-bottom:10px;
 cursor:pointer;
 transition:0.3s;
@@ -83,11 +80,12 @@ outline:3px solid #2f5d50;
 transform:scale(1.02);
 }
 
-.card-percorso:hover{
-background:#eee;
+.dettagli{
+display:none;
+margin-top:10px;
 }
 
-/* footer */
+/* FOOTER */
 footer{
 text-align:center;
 padding:30px;
@@ -95,7 +93,10 @@ font-size:14px;
 color:#777;
 }
 
+html{scroll-behavior:smooth}
+
 </style>
+
 </head>
 
 <body>
@@ -107,31 +108,12 @@ color:#777;
 
 <div class="container">
 
-<h1>I nostri percorsi ciclo-pedonali</h1>
+<h1 style="text-align:center;font-family:'Playfair Display'">I nostri percorsi</h1>
 
 <div id="map"></div>
+<div id="elevation"></div>
 
-<div class="card">
-
-<div class="filters">
-<select id="filtro-tipo" onchange="filtra()">
-<option value="">Tipo</option>
-<option value="trekking">Trekking</option>
-<option value="mtb">MTB</option>
-<option value="strada">Strada</option>
-</select>
-
-<select id="filtro-diff" onchange="filtra()">
-<option value="">Difficoltà</option>
-<option value="Facile">Facile</option>
-<option value="Media">Media</option>
-<option value="Difficile">Difficile</option>
-</select>
-</div>
-
-<div id="lista" class="lista"></div>
-
-</div>
+<div id="lista"></div>
 
 </div>
 
@@ -143,137 +125,143 @@ Appartamenti vacanze a Fénis, vicino al Castello di Fénis.
 
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 <script src="https://unpkg.com/leaflet-gpx/gpx.js"></script>
+<script src="https://unpkg.com/leaflet-elevation/dist/leaflet-elevation.min.js"></script>
 
 <script>
 
 /* MAPPA */
-
 var map = L.map('map');
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
 
-var colori={trekking:'green',mtb:'red',strada:'blue'};
-var layers={};
-var selected=null;
-var group=L.featureGroup().addTo(map);
+/* GRAFICO */
+var elevation = L.control.elevation({
+position:"bottomright"
+}).addTo(map);
 
-/* PERCORSI */
+/* VELOCITÀ */
+var velocita={
+trekking:4,
+mtb:12,
+strada:20
+};
 
+var layers={}, selected=null;
+
+/* DATI PERCORSI */
 var percorsi=[
-{id:'p1',nome:'🥾 Trekking 1',tipo:'trekking',file:'percorsi/trekking1.gpx',difficolta:'Facile',immagini:['img1.jpg']},
-{id:'p2',nome:'🚵 MTB 1',tipo:'mtb',file:'percorsi/mtb1.gpx',difficolta:'Media',immagini:['img2.jpg']}
+{
+id:'p1',
+nome:'🥾 Trekking Lago',
+tipo:'trekking',
+file:'trekking1.gpx',
+immagini:['img1.jpg']
+},
+{
+id:'p2',
+nome:'🚵 MTB Trail',
+tipo:'mtb',
+file:'mtb1.gpx',
+immagini:['img2.jpg']
+}
 ];
 
-/* CREAZIONE */
-
+/* LOOP */
 percorsi.forEach(p=>{
 
-var gpx=new L.GPX(p.file,{
-async:true,
-polyline_options:{color:colori[p.tipo],weight:4}
-})
+var gpx=new L.GPX(p.file,{async:true})
 
 .on('loaded',function(e){
 
-var dist=(e.target.get_distance()/1000).toFixed(1);
-var elev=e.target.get_elevation_gain().toFixed(0);
+var dist=(e.target.get_distance()/1000);
+var tempo=(dist/velocita[p.tipo]);
 
-p.dist=dist;
-p.elev=elev;
+p.tempo=tempo.toFixed(1);
 
 updateCard(p);
 
-gpx.bindPopup(`<b>${p.nome}</b><br>${dist} km • ${elev} m<br><img src="${p.immagini[0]}" width="120">`);
+map.fitBounds(e.target.getBounds());
 
-group.addLayer(e.target);
-map.fitBounds(group.getBounds());
+/* grafico */
+elevation.clear();
+elevation.load(p.file);
+
+/* marker */
+var pts=e.target.getLayers()[0].getLatLngs();
+L.marker(pts[0]).addTo(map).bindPopup("Partenza");
+L.marker(pts[pts.length-1]).addTo(map).bindPopup("Arrivo");
+
 })
 
-.on('click',function(e){select(p.id,e.target)})
-.on('mouseover',e=>e.target.setStyle({weight:6}))
-.on('mouseout',e=>{if(e.target!==selected)e.target.setStyle({weight:4})})
+.on('click',function(){
+select(p.id,e.target);
+scrollToCard(p.id);
+});
 
-.addTo(map);
-
-layers[p.id]=gpx;
+layers[p.id]=gpx.addTo(map);
 
 createCard(p);
 
 });
 
-/* CARD UI */
-
+/* CARD */
 function createCard(p){
 var el=document.createElement('div');
 el.className='card-percorso';
 el.id=p.id;
-el.onclick=()=>select(p.id);
-el.innerHTML=`<b>${p.nome}</b><div id="info-${p.id}">Caricamento...</div>`;
+
+el.innerHTML=`
+<b>${p.nome}</b>
+<div id="info-${p.id}">Caricamento...</div>
+
+<div class="dettagli">
+<img src="${p.immagini[0]}" width="100%">
+</div>
+`;
+
+el.onclick=()=>select(p.id,layers[p.id]);
+
 document.getElementById('lista').appendChild(el);
 }
 
+/* UPDATE */
 function updateCard(p){
 document.getElementById('info-'+p.id).innerHTML=
-`${p.dist} km • ${p.elev} m<br>${p.difficolta}`;
+`⏱️ ${p.tempo} h • stimato`;
 }
 
-/* SELEZIONE */
+/* SELECT */
+function select(id,layer){
 
-function select(id,layer=null){
 if(selected) selected.setStyle({weight:4});
 
-if(layer){
-layer.setStyle({weight:8});
+layer.setStyle({weight:7});
 selected=layer;
+
+document.querySelectorAll('.card-percorso').forEach(c=>{
+c.classList.remove('active');
+c.querySelector('.dettagli').style.display='none';
+});
+
+var el=document.getElementById(id);
+el.classList.add('active');
+el.querySelector('.dettagli').style.display='block';
+
 map.fitBounds(layer.getBounds());
 }
 
-document.querySelectorAll('.card-percorso')
-.forEach(c=>c.classList.remove('active'));
-
-document.getElementById(id).classList.add('active');
-
-history.replaceState(null,null,'#'+id);
+/* SCROLL */
+function scrollToCard(id){
+document.getElementById(id).scrollIntoView({behavior:'smooth',block:'center'});
 }
-
-/* FILTRI */
-
-function filtra(){
-var tipo=document.getElementById('filtro-tipo').value;
-var diff=document.getElementById('filtro-diff').value;
-
-percorsi.forEach(p=>{
-var show=true;
-
-if(tipo && p.tipo!==tipo) show=false;
-if(diff && p.difficolta!==diff) show=false;
-
-document.getElementById(p.id).style.display=show?'block':'none';
-
-if(show) map.addLayer(layers[p.id]);
-else map.removeLayer(layers[p.id]);
-});
-}
-
-/* DEEP LINK */
-
-window.onload=()=>{
-var id=location.hash.replace('#','');
-if(id && layers[id]){
-setTimeout(()=>select(id,layers[id]),1000);
-}
-};
 
 </script>
 
+<!-- TRADUTTORE -->
 <script>
 function googleTranslateElementInit() {
-new google.translate.TranslateElement(
-{pageLanguage:'it'},
-'google_translate_element'
-);
+new google.translate.TranslateElement({pageLanguage:'it'},'google_translate_element');
 }
 </script>
-
 <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
 </body>
