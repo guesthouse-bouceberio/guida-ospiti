@@ -368,19 +368,19 @@ html{scroll-behavior:smooth}
   <div class="card" onclick="openMap('GPX_trekking_viafrancigena.gpx', 'Via Francigena')">
     <h3>Via Francigena</h3>
     <p>🚶 A piedi</p>
-    <p>⏱ 2h • ⛰ 300m • 🟢 Facile</p>
+    <p>⏱ 2h • 🏔️ 300m • 🟢 Facile</p>
   </div>
 
   <div class="card" onclick="openMap('GPX_mtb_nus_fenis_ussel.gpx', 'Trail Castello di Fénis - Ussel')">
     <h3>Trail Castello di Fénis - Ussel</h3>
     <p>🚵 MTB</p>
-    <p>⏱ 3h • ⛰ 800m • 🟡 Medio</p>
+    <p>⏱ 3h • 🏔️ 800m • 🟡 Medio</p>
   </div>
 
   <div class="card" onclick="openMap('GPX_strada_pista_ciclopedonale_dorabaltea.gpx', 'Pista ciclabile Dora Baltea')">
     <h3>Pista ciclabile Dora Baltea</h3>
     <p>🚴 Bici da strada</p>
-    <p>⏱ 1h30 • ⛰ 150m • 🔴 Difficile</p>
+    <p>⏱ 1h30 • 🏔️ 150m • 🔴 Difficile</p>
   </div>
 
 </div>
@@ -550,7 +550,6 @@ let gpxLayer;
 function openMap(gpxFile, title) {
   document.getElementById("mapPopup").style.display = "flex";
   document.getElementById("mapTitle").innerText = title;
-
   document.getElementById("downloadBtn").href = gpxFile;
 
   setTimeout(() => {
@@ -558,7 +557,9 @@ function openMap(gpxFile, title) {
       map.remove();
     }
 
-    map = L.map('map');
+    map = L.map('map', {
+      zoomControl: false  // opzionale: niente +/-
+    });
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '&copy; OpenStreetMap'
@@ -566,11 +567,25 @@ function openMap(gpxFile, title) {
 
     gpxLayer = new L.GPX(gpxFile, {
       async: true,
+
+      // 🚫 DISABILITA TUTTI I MARKER
       marker_options: {
-        startIconUrl: null,
-        endIconUrl: null,
-        shadowUrl: null
+        startIconUrl: '',
+        endIconUrl: '',
+        shadowUrl: '',
+        wptIconUrls: {}
+      },
+
+      // 🚫 niente waypoint
+      parseElements: ['track', 'route'],
+
+      // 🎨 stile traccia (opzionale ma consigliato)
+      polyline_options: {
+        color: '#2f5d50',
+        weight: 4,
+        opacity: 0.9
       }
+
     }).on('loaded', function(e) {
       map.fitBounds(e.target.getBounds());
     }).addTo(map);
