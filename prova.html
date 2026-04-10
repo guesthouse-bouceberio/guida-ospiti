@@ -120,7 +120,42 @@ border:none;
 font-size:14px;
 }
 
-/* PRENOTA SUBITO */
+/* CARD */
+
+.card{
+background:rgba(255,255,255,0.88);
+padding:26px;
+margin-bottom:26px;
+border-radius:20px;
+box-shadow:0 12px 35px rgba(0,0,0,0.08);
+backdrop-filter: blur(6px);
+transition:0.3s;
+}
+
+.card:hover{
+transform:translateY(-4px);
+box-shadow:0 14px 32px rgba(0,0,0,0.12);
+}
+
+/* GALLERY */
+
+.gallery{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:12px;
+}
+
+img{
+width:100%;
+border-radius:12px;
+transition:0.3s;
+}
+
+img:hover{
+transform:scale(1.03);
+}
+
+  /* PRENOTA SUBITO */
 
 .prenota-float{
 position:fixed;
