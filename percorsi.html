@@ -528,6 +528,7 @@ function googleTranslateElementInit() {
 
 /* MAPPA */
 var map = L.map('map');
+map.setView([45.74, 7.5], 12); // vista iniziale su Fénis
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
 
 /* GRAFICO */
@@ -572,46 +573,46 @@ immagini:['img3.jpg']
 ];
 
 /* LOOP */
-percorsi.forEach(p=>{
+percorsi.forEach(p => {
 
-var gpx=new L.GPX(p.file,{async:true})
+  var gpx = new L.GPX(p.file, { async: true })
 
-.on('loaded',function(e){
+  .on('loaded', function(e){
 
-var dist=(e.target.get_distance()/1000);
-var tempo=(dist/velocita[p.tipo]);
+    var dist = (e.target.get_distance() / 1000);
+    var tempo = (dist / velocita[p.tipo]);
 
-p.tempo=tempo.toFixed(1);
+    p.tempo = tempo.toFixed(1);
 
-updateCard(p);
+    updateCard(p);
 
-map.fitBounds(e.target.getBounds());
+    // zoom sul percorso caricato
+    map.fitBounds(e.target.getBounds());
 
-map.setView([45.74, 7.5], 12); // zona Fénis
+    /* grafico */
+    elevation.clear();
+    elevation.load(p.file);
 
-.on('error', function(e){
-  console.log("Errore GPX:", p.file);
-});
-  
-/* grafico */
-elevation.clear();
-elevation.load(p.file);
+    /* marker */
+    var pts = e.target.getLayers()[0].getLatLngs();
+    L.marker(pts[0]).addTo(map).bindPopup("Partenza");
+    L.marker(pts[pts.length - 1]).addTo(map).bindPopup("Arrivo");
 
-/* marker */
-var pts=e.target.getLayers()[0].getLatLngs();
-L.marker(pts[0]).addTo(map).bindPopup("Partenza");
-L.marker(pts[pts.length-1]).addTo(map).bindPopup("Arrivo");
+  })
 
-})
+  .on('error', function(e){
+    console.log("Errore GPX:", p.file);
+  })
 
-.on('click',function(){
-select(p.id,e.target);
-scrollToCard(p.id);
-});
+  .on('click', function(e){
+    select(p.id, e.target);
+    scrollToCard(p.id);
+  });
 
-layers[p.id]=gpx.addTo(map);
+  // 👉 NON aggiungere subito alla mappa (UX migliore)
+  layers[p.id] = gpx;
 
-createCard(p);
+  createCard(p);
 
 });
 
@@ -642,23 +643,29 @@ document.getElementById('info-'+p.id).innerHTML=
 }
 
 /* SELECT */
-function select(id,layer){
+function select(id, layer){
 
-if(selected) selected.setStyle({weight:4});
+  // rimuove percorso precedente
+  if(selected){
+    map.removeLayer(selected);
+  }
 
-layer.setStyle({weight:7});
-selected=layer;
+  // aggiunge nuovo
+  layer.addTo(map);
+  selected = layer;
 
-document.querySelectorAll('.card-percorso').forEach(c=>{
-c.classList.remove('active');
-c.querySelector('.dettagli').style.display='none';
-});
+  layer.setStyle({weight:7});
 
-var el=document.getElementById(id);
-el.classList.add('active');
-el.querySelector('.dettagli').style.display='block';
+  document.querySelectorAll('.card-percorso').forEach(c=>{
+    c.classList.remove('active');
+    c.querySelector('.dettagli').style.display='none';
+  });
 
-map.fitBounds(layer.getBounds());
+  var el = document.getElementById(id);
+  el.classList.add('active');
+  el.querySelector('.dettagli').style.display='block';
+
+  map.fitBounds(layer.getBounds());
 }
 
 /* SCROLL */
