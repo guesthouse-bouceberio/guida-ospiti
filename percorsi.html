@@ -344,6 +344,10 @@ color:#777;
   font-size: 20px;
 }
 
+  .emoji-marker {
+  font-size: 22px;
+  text-align: center;
+}
   
 html{scroll-behavior:smooth}
 
@@ -557,9 +561,7 @@ function openMap(gpxFile, title) {
       map.remove();
     }
 
-    map = L.map('map', {
-      zoomControl: false  // opzionale: niente +/-
-    });
+    map = L.map('map');
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '&copy; OpenStreetMap'
@@ -567,19 +569,13 @@ function openMap(gpxFile, title) {
 
     gpxLayer = new L.GPX(gpxFile, {
       async: true,
-
-      // 🚫 DISABILITA TUTTI I MARKER
       marker_options: {
         startIconUrl: '',
         endIconUrl: '',
         shadowUrl: '',
         wptIconUrls: {}
       },
-
-      // 🚫 niente waypoint
       parseElements: ['track', 'route'],
-
-      // 🎨 stile traccia (opzionale ma consigliato)
       polyline_options: {
         color: '#2f5d50',
         weight: 4,
@@ -587,8 +583,52 @@ function openMap(gpxFile, title) {
       }
 
     }).on('loaded', function(e) {
-      map.fitBounds(e.target.getBounds());
+
+      const layer = e.target;
+      const points = layer.getLayers()[0].getLatLngs();
+
+      map.fitBounds(layer.getBounds());
+
+      // 📍 PARTENZA
+      const start = points[0];
+      L.marker(start, {
+        icon: L.divIcon({
+          html: "📍",
+          className: "emoji-marker",
+          iconSize: [24, 24],
+          iconAnchor: [12, 24]
+        })
+      }).addTo(map).bindPopup("Partenza");
+
+      // 🏁 ARRIVO
+      const end = points[points.length - 1];
+      L.marker(end, {
+        icon: L.divIcon({
+          html: "🏁",
+          className: "emoji-marker",
+          iconSize: [24, 24],
+          iconAnchor: [12, 24]
+        })
+      }).addTo(map).bindPopup("Arrivo");
+
     }).addTo(map);
+
+    // 🧭 GEOLOCALIZZAZIONE
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(function(pos) {
+        const userLatLng = [pos.coords.latitude, pos.coords.longitude];
+
+        L.marker(userLatLng, {
+          icon: L.divIcon({
+            html: "🔵",
+            className: "emoji-marker",
+            iconSize: [20, 20],
+            iconAnchor: [10, 10]
+          })
+        }).addTo(map).bindPopup("Tu sei qui");
+
+      });
+    }
 
   }, 200);
 }
