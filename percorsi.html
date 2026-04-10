@@ -184,16 +184,6 @@ transform:scale(1);
 box-shadow:0 4px 12px rgba(0,0,0,0.25);
 }
 }
-  
-  /* LOGO */
- .logo {
-  width: 33%;
-  max-width: 1536px;
-  height: auto;
-  object-fit: contain;
-  display: block;
-  margin: 0 auto;
-}
 
 /* MOBILE */
 @media (max-width: 768px) {
@@ -263,20 +253,6 @@ margin-top:30px;
   opacity: 0.85;
 }
 
-/* SOCIAL LINK */
-  .social-links {
-  display: flex;
-  gap: 60px; 
-}
-  .social-links svg {
-  filter: drop-shadow(0 2px 3px rgba(0,0,0,0.2));
-  width: 36px;
-  height: 36px;
-}
-  .social-links svg:hover {
-  transform: scale(1.1);
-  transition: 0.2s;
-}
   /* FOOTER */
 
 footer{
@@ -490,19 +466,8 @@ Appartamenti vacanze a Fénis, vicino al Castello di Fénis, ideali per visitare
   
 </footer>
   
-  <script>
 
-/* apertura/chiusura FAQ */
-document.querySelectorAll('.faq-question').forEach(item => {
-  item.addEventListener('click', () => {
-    const answer = item.nextElementSibling;
-    answer.style.display = answer.style.display === 'block' ? 'none' : 'block';
-  });
-});
-
-</script>
-
-  
+ 
 <script>
 function googleTranslateElementInit() {
   new google.translate.TranslateElement(
