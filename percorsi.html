@@ -550,14 +550,7 @@ percorsi.forEach(p => {
 
  var gpx = new L.GPX(p.file, {
   async: true,
-  markers: {
-    startIcon: null,
-    endIcon: null,
-    shadowUrl: null,
-    wptIcons: {
-      '': null
-    }
-  }
+  markers: false
 })
 
   .on('loaded', function(e){
