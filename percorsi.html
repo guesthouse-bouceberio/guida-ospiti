@@ -555,6 +555,12 @@ percorsi.forEach(p => {
 
   .on('loaded', function(e){
 
+    e.target.eachLayer(function(layer){
+  if(!(layer instanceof L.Polyline)){
+    map.removeLayer(layer);
+  }
+});
+    
     var dist = (e.target.get_distance() / 1000);
     var tempo = (dist / velocita[p.tipo]);
 
@@ -572,9 +578,22 @@ percorsi.forEach(p => {
 }
 
     /* marker */
-    var pts = e.target.getLayers()[0].getLatLngs();
-    L.marker(pts[0]).addTo(map).bindPopup("Partenza");
-    L.marker(pts[pts.length - 1]).addTo(map).bindPopup("Arrivo");
+    var trackLayer = null;
+
+// trova SOLO la traccia (polyline)
+e.target.eachLayer(function(layer){
+  if(layer instanceof L.Polyline){
+    trackLayer = layer;
+  }
+});
+
+if(trackLayer){
+  var pts = trackLayer.getLatLngs();
+
+  // marker puliti (solo tuoi)
+  L.marker(pts[0]).addTo(map).bindPopup("Partenza");
+  L.marker(pts[pts.length - 1]).addTo(map).bindPopup("Arrivo");
+}
 
   })
 
