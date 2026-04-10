@@ -548,7 +548,17 @@ immagini:['img3.jpg']
 /* LOOP */
 percorsi.forEach(p => {
 
-  var gpx = new L.GPX(p.file, { async: true })
+ var gpx = new L.GPX(p.file, {
+  async: true,
+  markers: {
+    startIcon: null,
+    endIcon: null,
+    shadowUrl: null,
+    wptIcons: {
+      '': null
+    }
+  }
+})
 
   .on('loaded', function(e){
 
