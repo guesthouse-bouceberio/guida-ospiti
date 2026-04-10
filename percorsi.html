@@ -486,8 +486,10 @@ function googleTranslateElementInit() {
 <!-- SCRIPT -->
 
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-gpx/1.7.0/gpx.min.js"></script>
-<script src="https://unpkg.com/leaflet-elevation/dist/leaflet-elevation.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-elevation/1.6.0/leaflet-elevation.min.js"></script>
 
 <script>
 
@@ -497,9 +499,15 @@ map.setView([45.74, 7.5], 12); // vista iniziale su Fénis
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
 
 /* GRAFICO */
-var elevation = L.control.elevation({
-position:"bottomright"
-}).addTo(map);
+var elevation;
+
+if (L.control.elevation) {
+  elevation = L.control.elevation({
+    position:"bottomright"
+  }).addTo(map);
+} else {
+  console.log("Plugin elevation non caricato");
+}
 
 /* VELOCITÀ */
 var velocita={
@@ -555,8 +563,10 @@ percorsi.forEach(p => {
     map.fitBounds(e.target.getBounds());
 
     /* grafico */
-    elevation.clear();
-    elevation.load(p.file);
+    if(elevation){
+  elevation.clear();
+  elevation.load(p.file);
+}
 
     /* marker */
     var pts = e.target.getLayers()[0].getLatLngs();
