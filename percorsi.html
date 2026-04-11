@@ -154,6 +154,14 @@ font-size:14px;
   margin-top: 0;
 }
 
+  .card img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 12px;
+  margin-bottom: 10px;
+}
+
 /* GALLERY */
 
 .gallery{
@@ -357,6 +365,69 @@ color:#777;
   border-radius: 50%;
   box-shadow: 0 0 10px rgba(0,0,0,0.3);
 }
+
+.slider {
+  position: relative;
+  width: 100%;
+  height: 400px;
+  overflow: hidden;
+  border-radius: 12px;
+}
+
+.slides {
+  display: flex;
+  height: 100%;
+  transition: transform 0.4s ease;
+}
+
+.slide {
+  min-width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+#map {
+  width: 100%;
+  height: 100%;
+}
+
+.arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0,0,0,0.5);
+  color: white;
+  border: none;
+  font-size: 22px;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 50%;
+  z-index: 10;
+}
+
+.arrow.left { left: 10px; }
+.arrow.right { right: 10px; }
+
+
+.disclaimer {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 20px;
+  font-size: 13px;
+  color: #555;
+  background: rgba(255,255,255,0.7);
+  border-radius: 12px;
+  line-height: 1.5;
+}
   
 html{scroll-behavior:smooth}
 
@@ -379,18 +450,21 @@ html{scroll-behavior:smooth}
 
   <!-- CARD -->
   <div class="card" onclick="openMap('GPX_trekking_viafrancigena.gpx', 'Via Francigena')">
+    <img src="francigena1.jpg" alt="Via Francigena">
     <h3>Via Francigena</h3>
     <p>🚶 A piedi</p>
     <p>⏱ 2h • 🏔️ 300m • 🟢 Facile</p>
   </div>
 
   <div class="card" onclick="openMap('GPX_mtb_nus_fenis_ussel.gpx', 'Trail Castello di Fénis - Ussel')">
+    <img src="trail_fenisussel.jpg" alt="Trail Castello di Fénis - Ussel">
     <h3>Trail Castello di Fénis - Ussel</h3>
     <p>🚵 MTB</p>
     <p>⏱ 3h • 🏔️ 800m • 🟡 Medio</p>
   </div>
 
   <div class="card" onclick="openMap('GPX_strada_pista_ciclopedonale_dorabaltea.gpx', 'Pista ciclabile Dora Baltea')">
+    <img src="ciclabile.jpg" alt="Pista ciclabile Dora Baltea">
     <h3>Pista ciclabile Dora Baltea</h3>
     <p>🚴 Bici da strada</p>
     <p>⏱ 1h30 • 🏔️ 150m • 🔴 Difficile</p>
@@ -535,6 +609,15 @@ html{scroll-behavior:smooth}
 🏡 Vai al nostro sito
 </a>
 
+<div class="disclaimer">
+  <p><strong>Nota importante</strong><br>
+  I percorsi proposti sono suggerimenti basati su esperienze personali e non sono stati verificati da guide professioniste.
+  Le informazioni fornite sono indicative e possono variare nel tempo (condizioni del terreno, meteo, segnaletica).
+  Ogni ospite è responsabile della propria sicurezza e dell’attrezzatura utilizzata.
+  La struttura non si assume responsabilità per eventuali incidenti o inconvenienti lungo i percorsi.
+  </p>
+</div>
+  
   <footer>
 <p><p>
 Appartamenti vacanze a Fénis, vicino al Castello di Fénis, ideali per visitare la Valle d'Aosta e soggiornare in una posizione tranquilla e strategica.
@@ -559,8 +642,47 @@ function googleTranslateElementInit() {
 <script>
 let map;
 let gpxLayer;
+let currentSlide = 0;
+let totalSlides = 0;
 
 function openMap(gpxFile, title) {
+
+  let images = [];
+
+  if (title === "Via Francigena") {
+    images = ["francigena1.jpg", "francigena2.jpg", "francigena3.jpg"];
+  } 
+  else if (title === "Trail Castello di Fénis - Ussel") {
+    images = ["fenis1.jpg", "fenis2.jpg"];
+  } 
+  else {
+    images = ["dora1.jpg", "dora2.jpg"];
+  }
+
+  const slidesContainer = document.querySelector(".slides");
+
+  // reset slider (prima slide = mappa)
+  slidesContainer.innerHTML = `
+    <div class="slide">
+      <div id="map"></div>
+    </div>
+  `;
+
+  // aggiungi immagini
+  images.forEach(img => {
+    slidesContainer.innerHTML += `
+      <div class="slide">
+        <img src="${img}">
+      </div>
+    `;
+  });
+
+  currentSlide = 0;
+  totalSlides = images.length + 1;
+
+  updateSlider();
+
+  // 👉 MOSTRA POPUP
   document.getElementById("mapPopup").style.display = "flex";
   document.getElementById("mapTitle").innerText = title;
   document.getElementById("downloadBtn").href = gpxFile;
@@ -598,7 +720,6 @@ function openMap(gpxFile, title) {
 
       map.fitBounds(layer.getBounds());
 
-      // 📍 PARTENZA
       const start = points[0];
       L.marker(start, {
         icon: L.divIcon({
@@ -609,7 +730,6 @@ function openMap(gpxFile, title) {
         })
       }).addTo(map).bindPopup("Partenza");
 
-      // 🏁 ARRIVO
       const end = points[points.length - 1];
       L.marker(end, {
         icon: L.divIcon({
@@ -622,7 +742,6 @@ function openMap(gpxFile, title) {
 
     }).addTo(map);
 
-    // 🧭 GEOLOCALIZZAZIONE
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(function(pos) {
         const userLatLng = [pos.coords.latitude, pos.coords.longitude];
@@ -635,13 +754,27 @@ function openMap(gpxFile, title) {
             iconAnchor: [10, 10]
           })
         }).addTo(map).bindPopup("Tu sei qui");
-
       });
     }
 
   }, 200);
 }
 
+function updateSlider() {
+  const slides = document.querySelector(".slides");
+  slides.style.transform = `translateX(-${currentSlide * 100}%)`;
+}
+
+function nextSlide() {
+  currentSlide = (currentSlide + 1) % totalSlides;
+  updateSlider();
+}
+
+function prevSlide() {
+  currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+  updateSlider();
+}
+  
 function closeMap() {
   document.getElementById("mapPopup").style.display = "none";
 }
@@ -653,7 +786,17 @@ function closeMap() {
     <span class="close" onclick="closeMap()">✖</span>
     <h2 id="mapTitle"></h2>
 
-    <div id="map" style="height:400px;"></div>
+ <div class="slider">
+  <button class="arrow left" onclick="prevSlide()">❮</button>
+
+  <div class="slides">
+    <div class="slide">
+      <div id="map"></div>
+    </div>
+  </div>
+
+  <button class="arrow right" onclick="nextSlide()">❯</button>
+</div>   
 
     <a id="downloadBtn" class="button" download>
       ⬇️ Scarica GPX
