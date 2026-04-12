@@ -45,6 +45,9 @@ body {
     #b8aea0 100%
   );
   background-attachment: fixed;
+   
+   -webkit-tap-highlight-color: transparent;
+
 }
 
 h1, h2, h3 {
@@ -473,7 +476,102 @@ footer {
   width: 100%;
 }
 
+/* =========================
+   MOBILE OPTIMIZATION
+========================= */
 
+@media (max-width: 768px) {
+
+  /* CONTAINER */
+  .container {
+    padding: 20px 14px;
+  }
+
+  /* HEADER */
+  header {
+    padding: 20px 10px;
+  }
+
+  /* NAV */
+  nav {
+    gap: 8px;
+  }
+
+  nav a {
+    font-size: 0.9em;
+    padding: 8px 14px;
+  }
+
+  /* CARD */
+  .card {
+    padding: 20px;
+    border-radius: 16px;
+  }
+
+  /* GALLERY */
+  .gallery {
+    grid-template-columns: 1fr;
+  }
+
+  /* GRID */
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* RISTORANTI */
+  .restaurant {
+    grid-template-columns: 1fr;
+  }
+
+  .restaurant img {
+    width: 100%;
+    height: 160px;
+  }
+
+  /* MAP */
+  .map {
+    height: 300px;
+  }
+
+  /* BUTTON */
+  .button {
+    width: 100%;
+    justify-content: center;
+    padding: 12px;
+  }
+
+  /* CONTACT BOX */
+  .contact-box {
+    bottom: 15px;
+    right: 15px;
+    padding: 10px 12px;
+  }
+
+  .contact-box svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  /* PRENOTA FLOAT */
+  .prenota-float {
+    bottom: 90px;
+    right: 15px;
+    font-size: 0.85em;
+    padding: 10px 14px;
+  }
+
+  /* LOGO */
+  .logo {
+    width: 75%;
+  }
+
+  /* LISTE */
+  .attivita-list li,
+  .food-list li {
+    padding: 12px 0;
+  }
+
+}
 
   
 </style>
