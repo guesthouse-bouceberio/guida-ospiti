@@ -597,7 +597,36 @@ box-shadow:0 4px 12px rgba(0,0,0,0.25);
 .food-card h2::before {
   content: "🍷";
   font-size: 20px;
-}  
+} 
+
+  /* NORMALIZZAZIONE FONT */
+
+.card {
+  font-size: 0.92em;
+  line-height: 1.6;
+}
+
+/* Tutti gli elementi dentro le card ereditano lo stesso font */
+.card p,
+.card li,
+.card span,
+.card a,
+.card small {
+  font-size: 1em;
+  line-height: inherit;
+}
+
+/* Rimuove tutte le differenze manuali */
+.attivita-descrizione,
+.food-desc,
+.food-category,
+.attivita-intro,
+.badge,
+.link-elegante {
+  font-size: 1em;
+}
+
+  
 </style>
 
 </head>
