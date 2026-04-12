@@ -599,31 +599,140 @@ box-shadow:0 4px 12px rgba(0,0,0,0.25);
   font-size: 20px;
 } 
 
-  /* NORMALIZZAZIONE FONT */
+/* =========================
+   BASE TIPOGRAFIA
+========================= */
+
+body {
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  color: #333;
+}
+
+/* Titoli */
+h1, h2, h3 {
+  font-family: 'Playfair Display', serif;
+  letter-spacing: 0.5px;
+}
+
+h2 {
+  font-size: 1.6em;
+}
+
+h3 {
+  font-size: 1.2em;
+}
+
+/* =========================
+   CARD (BASE TESTO)
+========================= */
 
 .card {
-  font-size: 0.92em;
+  background: rgba(255,255,255,0.88);
+  padding: 26px;
+  margin-bottom: 26px;
+  border-radius: 20px;
+  box-shadow: 0 12px 35px rgba(0,0,0,0.08);
+  backdrop-filter: blur(6px);
+  transition: 0.3s;
+
+  font-size: 0.95rem; /* 👈 BASE UNICA */
   line-height: 1.6;
 }
 
-/* Tutti gli elementi dentro le card ereditano lo stesso font */
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 32px rgba(0,0,0,0.12);
+}
+
+/* Tutti gli elementi ereditano */
 .card p,
 .card li,
 .card span,
 .card a,
+.card div,
 .card small {
   font-size: 1em;
   line-height: inherit;
 }
 
-/* Rimuove tutte le differenze manuali */
+/* Liste */
+ul {
+  padding-left: 18px;
+}
+
+li {
+  margin-bottom: 6px;
+}
+
+/* =========================
+   TESTI SPECIALI (uniformati)
+========================= */
+
 .attivita-descrizione,
-.food-desc,
-.food-category,
 .attivita-intro,
-.badge,
-.link-elegante {
+.food-desc,
+.badge {
   font-size: 1em;
+}
+
+/* Titoletti interni */
+.attivita-titolo,
+.food-name {
+  font-weight: 600;
+  color: #2f5d50;
+  font-size: 1em;
+}
+
+/* =========================
+   ECCEZIONI VOLUTE
+========================= */
+
+/* Categoria (leggermente più piccola) */
+.food-category {
+  font-size: 0.9em;
+  color: #777;
+}
+
+/* Link elegante (leggermente più piccolo) */
+.link-elegante {
+  font-size: 0.85em;
+  color: #6b6b6b;
+  text-decoration: none;
+  position: relative;
+  display: inline-block;
+  margin-top: 4px;
+  transition: color 0.25s ease;
+}
+
+/* animazione linea */
+.link-elegante::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 0%;
+  height: 1px;
+  background-color: #2f5d50;
+  transition: width 0.25s ease;
+}
+
+.link-elegante:hover {
+  color: #2f5d50;
+}
+
+.link-elegante:hover::after {
+  width: 100%;
+}
+
+/* =========================
+   BOTTONI (leggermente più visibili)
+========================= */
+
+.button {
+  font-size: 0.95em;
+  font-weight: 500;
 }
 
   
