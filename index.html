@@ -1394,15 +1394,17 @@ function googleTranslateElementInit() {
 <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
 <script>
-  const backToTop = document.querySelector('.back-to-top');
+document.addEventListener("DOMContentLoaded", function () {
+  const backToTop = document.querySelector(".back-to-top");
 
-  window.addEventListener('scroll', () => {
-    if (window.scrollY > 300) {
-      backToTop.classList.add('show');
+  window.addEventListener("scroll", function () {
+    if (window.scrollY > 200) {
+      backToTop.classList.add("show");
     } else {
-      backToTop.classList.remove('show');
+      backToTop.classList.remove("show");
     }
   });
+});
 </script>
 
 <a href="#" class="back-to-top" aria-label="Torna su">
