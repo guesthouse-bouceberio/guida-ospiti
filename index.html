@@ -288,13 +288,15 @@ img:hover {
 }
 
 /* =========================
-   FOOTER
+   FOOTER (DISCLAIMER STYLE)
 ========================= */
 
 footer {
   text-align: center;
   padding: 30px;
   color: #777;
+  font-size: 0.8em; /* 👈 più piccolo */
+  line-height: 1.4;
 }
 
 /* =========================
@@ -586,45 +588,42 @@ footer {
 }
 
 /* =========================
-   MOBILE OPTIMIZATION
+   MOBILE OPTIMIZATION (FIXED)
 ========================= */
 
 @media (max-width: 768px) {
 
-  /* CONTAINER */
+  /* CONTAINER (centra tutto davvero) */
   .container {
-    padding: 20px 14px;
+    padding: 20px 16px;
   }
 
-  /* HEADER */
-  header {
-    padding: 20px 10px;
-  }
-
-  /* NAV */
-  nav {
-    gap: 8px;
-  }
-
-  nav a {
-    font-size: 0.9em;
-    padding: 8px 14px;
-  }
-
-  /* CARD */
+  /* CARD - centrate e coerenti */
   .card {
     padding: 20px;
     border-radius: 16px;
+    margin-left: auto;
+    margin-right: auto;
   }
 
-  /* GALLERY */
+  /* GRID e GALLERY */
+  .grid,
   .gallery {
     grid-template-columns: 1fr;
   }
 
-  /* GRID */
-  .grid {
-    grid-template-columns: 1fr;
+  /* BOTTONI - NON DEVONO USCIRE DALLE CARD */
+  .button {
+    width: 100%;
+    max-width: 100%; /* 👈 evita overflow */
+    justify-content: center;
+    margin: 8px 0; /* 👈 spazio tra bottoni */
+    box-sizing: border-box;
+  }
+
+  /* se hai più bottoni uno sotto l’altro */
+  .button + .button {
+    margin-top: 10px; /* 👈 distanza verticale */
   }
 
   /* RISTORANTI */
@@ -642,45 +641,50 @@ footer {
     height: 300px;
   }
 
-  /* BUTTON */
-  .button {
-    width: 100%;
-    justify-content: center;
-    padding: 12px;
-  }
-
-  /* CONTACT BOX */
-  .contact-box {
-    bottom: 15px;
-    right: 15px;
-    padding: 10px 12px;
-  }
-
-  .contact-box svg {
-    width: 24px;
-    height: 24px;
-  }
-
-  /* PRENOTA FLOAT */
-  .prenota-float {
-    bottom: 90px;
-    right: 15px;
-    font-size: 0.85em;
-    padding: 10px 14px;
-  }
-
   /* LOGO */
   .logo {
     width: 75%;
   }
 
-  /* LISTE */
-  .attivita-list li,
-  .food-list li {
-    padding: 12px 0;
+  /* =========================
+     FOOD MOBILE FIX
+  ========================= */
+
+  .food-name {
+    display: block; /* 👈 forza a capo */
+    margin-bottom: 2px;
+  }
+
+  .food-category {
+    display: inline; /* resta accanto al nome */
+  }
+
+  .food-desc {
+    display: block;
+    margin-top: 6px; /* 👈 più respiro */
+  }
+
+  /* =========================
+     ATTIVITÀ (FIX FIocco)
+  ========================= */
+
+  .attivita-list li {
+    padding-left: 26px; /* 👈 meno invasivo */
+  }
+
+  .attivita-list li::before {
+    left: 0;
+    top: 16px; /* 👈 allineato meglio */
+    font-size: 12px;
+  }
+
+  .attivita-titolo {
+    display: block;
+    line-height: 1.4; /* 👈 evita sovrapposizioni */
   }
 
 }
+
 
   
 </style>
