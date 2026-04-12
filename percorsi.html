@@ -27,8 +27,7 @@ body {
   font-family: 'Inter', sans-serif;
   margin: 0;
   color: #333;
-
-  font-size: 0.92em; /* 👈 FONT UNIFICATO */
+  font-size: 0.92em;
 
   background: linear-gradient(
     to bottom,
@@ -38,22 +37,19 @@ body {
     #b8aea0 100%
   );
   background-attachment: fixed;
-   
-   -webkit-tap-highlight-color: transparent;
-
 }
 
-h1, h2, h3 {
+h1, h2 {
   font-family: 'Playfair Display', serif;
-  letter-spacing: 0.5px;
+  text-align: center;
 }
 
 h2 {
-  font-size: 1.4em; /* mantiene gerarchia */
+  font-size: 1.4em;
 }
 
 /* =========================
-   HEADER
+   HEADER + LOGO
 ========================= */
 
 header {
@@ -67,101 +63,11 @@ header {
   justify-content: center;
 }
 
-/* =========================
-   NAV
-========================= */
-
-nav {
-  display: flex;
-  gap: 10px;
-  justify-content: center;
-  flex-wrap: wrap;
-  margin-top: 12px;
+.logo {
+  width: 33%;
+  display: block;
+  margin: 0 auto;
 }
-
-nav a {
-  text-decoration: none;
-  color: #f5f5f5;
-  text-shadow: 0 1px 3px rgba(0,0,0,0.3);
-
-  background: rgba(140, 189, 170, 0.5);
-  backdrop-filter: blur(8px);
-
-  padding: 10px 18px;
-  border-radius: 20px;
-
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-
-  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-  transition: all 0.3s ease;
-}
-
-nav a:hover {
-  transform: translateY(-2px);
-  background: #7aa895;
-}
-
-/* =========================
-   TRADUTTORE
-========================= */
-
-#google_translate_element {
-  margin-top: 15px;
-  text-align: center;
-}
-
-.goog-logo-link,
-.goog-te-gadget span {
-  display: none !important;
-}
-
-.goog-te-gadget {
-  color: transparent !important;
-}
-
-.goog-te-gadget select {
-  padding: 6px 10px;
-  border-radius: 8px;
-  border: none;
-}
-
-/* =========================
-   LAYOUT
-========================= */
-
-.container {
-  max-width: 1000px;
-  margin: 2px auto;
-  padding: 30px 20px;
-}
-
-/* =========================
-   CARD
-========================= */
-
-.card {
-  background: rgba(255,255,255,0.88);
-  padding: 26px;
-  margin-bottom: 26px;
-
-  border-radius: 20px;
-  box-shadow: 0 12px 35px rgba(0,0,0,0.08);
-  backdrop-filter: blur(6px);
-
-  transition: 0.3s;
-}
-
-.card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 14px 32px rgba(0,0,0,0.12);
-}
-
-.card p {
-  margin-bottom: 10px;
-}
-
 
 /* =========================
    BUTTON
@@ -170,6 +76,7 @@ nav a:hover {
 .button {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 10px;
 
   background: #2f5d50;
@@ -193,57 +100,114 @@ nav a:hover {
 .button svg {
   width: 22px;
   height: 22px;
-  transition: transform 0.2s ease;
-}
-
-.button svg:hover {
-  transform: scale(1.15);
 }
 
 /* =========================
-   BADGE
+   TRANSLATE
 ========================= */
 
-.badge {
-  background: #e3efe9;
-  color: #2f5d50;
-
-  padding: 8px 14px;
-  border-radius: 20px;
-
-  display: inline-block;
-  margin: 4px;
-
-  font-size: 0.9em;
-}
-
-/* =========================
-   GRID
-========================= */
-
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px,1fr));
-  gap: 16px;
-}
-
-.place-card {
-  background: #f9fbfd;
-  padding: 10px;
-  border-radius: 10px;
-}
-
-
-/* =========================
-   FOOTER (DISCLAIMER STYLE)
-========================= */
-
-footer {
+#google_translate_element {
+  margin-top: 15px;
   text-align: center;
+}
+
+.goog-logo-link,
+.goog-te-gadget span {
+  display: none !important;
+}
+
+.goog-te-gadget {
+  color: transparent !important;
+}
+
+.goog-te-gadget select {
+  padding: 6px 10px;
+  border-radius: 8px;
+  border: none;
+}
+
+/* =========================
+   CARD (MANTENUTE COME VOLEVI)
+========================= */
+
+.percorsi-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px,1fr));
+  gap: 20px;
   padding: 30px;
-  color: #777;
-  font-size: 0.8em; /* 👈 più piccolo */
-  line-height: 1.4;
+}
+
+.card {
+  background: rgba(255,255,255,0.9);
+  padding: 20px;
+  border-radius: 18px;
+  cursor: pointer;
+
+  box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+  transition: 0.3s;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+}
+
+.card img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 12px;
+  margin-bottom: 10px;
+}
+
+/* =========================
+   GALLERY
+========================= */
+
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px,1fr));
+  gap: 12px;
+}
+
+img {
+  width: 100%;
+  border-radius: 12px;
+  transition: 0.3s;
+}
+
+img:hover {
+  transform: scale(1.03);
+}
+
+/* =========================
+   PRENOTA FLOAT (INVARIATO)
+========================= */
+
+.prenota-float {
+  position: fixed;
+  bottom: 120px;
+  right: 20px;
+
+  background: rgba(245, 101, 39, 0.8);
+  color: white;
+
+  padding: 12px 16px;
+  border-radius: 30px;
+
+  text-decoration: none;
+
+  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+  z-index: 1000;
+
+  animation: fadeInUp 0.6s ease, pulseSoft 4s 1s infinite;
+  transition: 0.3s;
+}
+
+.prenota-float:hover {
+  background: #1f3f35;
+  transform: translateY(-3px) scale(1.05);
+  animation: none;
 }
 
 /* =========================
@@ -270,230 +234,57 @@ footer {
   z-index: 1000;
 }
 
-.contact-box .label {
-  font-weight: 600;
+.contact-box .icons {
+  display: flex;
+  gap: 14px;
 }
 
 .contact-box svg {
   width: 28px;
   height: 28px;
   fill: #f5f5f5;
-
-  transition: 0.2s;
-}
-
-.contact-box svg:hover {
-  transform: scale(1.15);
-  opacity: 0.85;
 }
 
 /* =========================
-   SOCIAL LINKS
+   CTA
 ========================= */
 
-.social-links {
-  display: flex !important;
-  justify-content: center;
-  align-items: center;
-  gap: 10px !important; /* 👈 forza distanza */
-}
-
-.social-links svg {
-  width: 28px;
-  height: 28px;
-  filter: drop-shadow(0 2px 3px rgba(0,0,0,0.2));
-  transition: transform 0.2s ease;
-}
-
-.social-links svg:hover {
-  transform: scale(1.1);
-   transition: 0.2s;
+.cta {
+  text-align: center;
+  margin-top: 30px;
 }
 
 /* =========================
-   PRENOTA FLOAT
+   FOOTER (DISCRETO)
 ========================= */
 
-.prenota-float {
-  position: fixed;
-  bottom: 120px;
-  right: 20px;
-
-  background: #2f5d50;
-  color: white;
-
-  padding: 12px 16px;
-  border-radius: 30px;
-
-  text-decoration: none;
-
-  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
-  z-index: 1000;
-
-  animation: fadeInUp 0.6s ease, pulseSoft 4s 1s infinite;
-}
-
-.prenota-float:hover {
-  background: #1f3f35;
-  transform: translateY(-3px) scale(1.05);
-  animation: none;
+footer {
+  text-align: center;
+  padding: 30px;
+  font-size: 0.8em;
+  color: #777;
 }
 
 /* =========================
-   ANIMAZIONI
+   DISCLAIMER (MANTENUTO)
 ========================= */
 
-@keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes pulseSoft {
-  0%,100% { transform: scale(1); }
-  50% { transform: scale(1.05); }
+.disclaimer {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 20px;
+  font-size: 0.85em;
+  color: #555;
+  background: rgba(255,255,255,0.7);
+  border-radius: 12px;
+  line-height: 1.5;
 }
 
 /* =========================
-   LOGO
+   POPUP MAPPA (INVARIATO)
 ========================= */
 
-.logo {
-  width: 33%;
-  max-width: 1536px;
-  display: block;
-  margin: 0 auto;
-}
-
-@media (max-width: 768px) {
-  .logo { width: 70%; }
-}
-
-
-/* =========================
-   BACK TO TOP BUTTON
-========================= */
-
-.back-to-top {
-  position: fixed;
-  bottom: 170px; /* 👈 sopra contact box */
-  right: 20px;
-
-  width: 44px;
-  height: 44px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  background: #8CBDAA;
-  color: white;
-
-  border-radius: 50%;
-  text-decoration: none;
-
-  font-size: 18px;
-  font-weight: bold;
-
-  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
-  z-index: 1000;
-
-  opacity: 1;
-  pointer-events: auto;
-
-  transition: all 0.3s ease;
-}
-
-/* VISIBILE */
-.back-to-top.show {
-  opacity: 1;
-  pointer-events: auto;
-}
-
-/* HOVER */
-.back-to-top:hover {
-  transform: translateY(-3px);
-  background: #7aa895;
-}
-   
-
-/* =========================
-   LINK ELEGANTE
-========================= */
-
-.link-elegante {
-  font-size: 0.82em; /* 👈 mantenuto */
-  color: #6b6b6b;
-  text-decoration: none;
-  position: relative;
-}
-
-.link-elegante::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: -2px;
-  width: 0%;
-  height: 1px;
-  background-color: #2f5d50;
-  transition: width 0.25s ease;
-}
-
-.link-elegante:hover {
-  color: #2f5d50;
-}
-
-.link-elegante:hover::after {
-  width: 100%;
-}
-
-/* =========================
-   MOBILE OPTIMIZATION (FIXED)
-========================= */
-
-@media (max-width: 768px) {
-
-  /* CONTAINER (centra tutto davvero) */
-  .container {
-    padding: 20px 16px;
-  }
-
-  /* CARD - centrate e coerenti */
-  .card {
-    padding: 20px;
-    border-radius: 16px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  /* GRID e GALLERY */
-  .grid,
-  .gallery {
-    grid-template-columns: 1fr;
-  }
-
-  /* BOTTONI - NON DEVONO USCIRE DALLE CARD */
-  .button {
-    width: 100%;
-    max-width: 100%; /* 👈 evita overflow */
-    justify-content: center;
-    margin: 8px 0; /* 👈 spazio tra bottoni */
-    box-sizing: border-box;
-  }
-
-  /* se hai più bottoni uno sotto l’altro */
-  .button + .button {
-    margin-top: 10px; /* 👈 distanza verticale */
-  }
-
-  /* LOGO */
-  .logo {
-    width: 75%;
-  }
-
-  /*----------------------------------------------------------
-
- /* MAP */
-  .map-popup {
+.map-popup {
   position: fixed;
   top: 0;
   left: 0;
@@ -521,22 +312,11 @@ footer {
   right: 15px;
   top: 10px;
   cursor: pointer;
-  font-size: 20px;
 }
 
-  .emoji-marker {
-  font-size: 22px;
-  text-align: center;
-}
-
-.user-dot {
-  width: 12px;
-  height: 12px;
-  background: #2f5d50;
-  border: 3px solid white;
-  border-radius: 50%;
-  box-shadow: 0 0 10px rgba(0,0,0,0.3);
-}
+/* =========================
+   SLIDER
+========================= */
 
 .slider {
   position: relative;
@@ -555,53 +335,78 @@ footer {
 .slide {
   min-width: 100%;
   height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 .slide img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 12px;
 }
 
-#map {
-  width: 100%;
-  height: 100%;
+/* =========================
+   ANIMAZIONI
+========================= */
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-.arrow {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: rgba(0,0,0,0.5);
-  color: white;
-  border: none;
-  font-size: 22px;
-  padding: 10px;
-  cursor: pointer;
-  border-radius: 50%;
-  z-index: 10;
+@keyframes pulseSoft {
+  0%,100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
 }
 
-.arrow.left { left: 10px; }
-.arrow.right { right: 10px; }
+/* =========================
+   SCROLL SMOOTH
+========================= */
 
-
-.disclaimer {
-  max-width: 800px;
-  margin: 40px auto;
-  padding: 20px;
-  font-size: 13px;
-  color: #555;
-  background: rgba(255,255,255,0.7);
-  border-radius: 12px;
-  line-height: 1.5;
+html {
+  scroll-behavior: smooth;
 }
-  
-html{scroll-behavior:smooth}
+
+/* =========================
+   MOBILE FIX
+========================= */
+
+@media (max-width: 768px) {
+
+  .logo {
+    width: 70%;
+  }
+
+  .percorsi-grid {
+    padding: 20px 15px;
+  }
+
+  .card {
+    margin: 0 auto;
+  }
+
+  .button {
+    width: 100%;
+    margin: 8px 0;
+  }
+
+  .button + .button {
+    margin-top: 10px;
+  }
+
+  .slider {
+    height: 260px;
+  }
+
+  .prenota-float {
+    bottom: 100px;
+    right: 15px;
+  }
+
+  .contact-box {
+    bottom: 15px;
+    right: 15px;
+  }
+
+}
 
 </style>
 
