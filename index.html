@@ -558,6 +558,53 @@ footer {
 }
 
 /* =========================
+   BACK TO TOP BUTTON
+========================= */
+
+.back-to-top {
+  position: fixed;
+  bottom: 70px; /* 👈 sopra contact box */
+  right: 20px;
+
+  width: 44px;
+  height: 44px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #8CBDAA;
+  color: white;
+
+  border-radius: 50%;
+  text-decoration: none;
+
+  font-size: 18px;
+  font-weight: bold;
+
+  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+  z-index: 1000;
+
+  opacity: 0;
+  pointer-events: none;
+
+  transition: all 0.3s ease;
+}
+
+/* VISIBILE */
+.back-to-top.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* HOVER */
+.back-to-top:hover {
+  transform: translateY(-3px);
+  background: #7aa895;
+}
+   
+
+/* =========================
    LINK ELEGANTE
 ========================= */
 
@@ -665,7 +712,7 @@ footer {
   }
 
   /* =========================
-     ATTIVITÀ (FIX FIocco)
+     ATTIVITÀ 
   ========================= */
 
   .attivita-list li {
@@ -1346,6 +1393,10 @@ function googleTranslateElementInit() {
 
 <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
+<a href="#" class="back-to-top" aria-label="Torna su">
+  ↑
+</a>
+     
 </body>
 </html>
 
