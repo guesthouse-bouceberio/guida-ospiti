@@ -201,7 +201,7 @@ img:hover {
   background: #2f5d50;
   color: white;
 
-  padding: 12px 22px;
+  padding: 13px 22px;
   border-radius: 30px;
 
   text-decoration: none;
@@ -344,16 +344,23 @@ footer {
    SOCIAL LINKS
 ========================= */
 
-.social-links {
-  display: flex !important;
-  justify-content: center;
+.social-button {
+  display: inline-flex;
   align-items: center;
-  gap: 10px !important; /* 👈 forza distanza */
+  gap: 10px;
+
+  padding: 10px 14px;
+}
+
+.social-links {
+  display: flex;
+  gap: 8px; /* 👈 spazio tra icone */
 }
 
 .social-links svg {
-  width: 28px;
-  height: 28px;
+  width: 24px;
+  height: 24px;
+   display: block;
   filter: drop-shadow(0 2px 3px rgba(0,0,0,0.2));
   transition: transform 0.2s ease;
 }
@@ -361,6 +368,15 @@ footer {
 .social-links svg:hover {
   transform: scale(1.1);
    transition: 0.2s;
+}
+
+.social-button .text {
+  white-space: nowrap; /* 👈 evita che vada a capo */
+}
+
+   .social-links a {
+  display: flex;
+  align-items: center;
 }
 
 /* =========================
@@ -777,7 +793,7 @@ footer {
 
     <p>Rispondiamo entro pochi minuti (orario di assistenza dalle 8:00 alle 19:00).</p>
 
-  <div class="button">
+  <div class="button has-icon social-button">
   <span class="text">Chiedi info su:</span>
 
   <div class="social-links">
@@ -934,7 +950,7 @@ footer {
 <p>GRATIS</p>
 </div>
   
-  <div class="button">
+  <div class="button has-icon social-button">
   <span class="text">Richiedi servizi:</span>
 
   <div class="social-links">
