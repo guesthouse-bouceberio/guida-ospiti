@@ -1304,10 +1304,10 @@ footer {
 
   <p class="attivita-intro">
       <b>Per i nostri ospiti sono disponibili tracce GPX di percorsi ciclo-pedonali nei dintorni di Fénis.</b><br>
- 
+ <center>
   <a class="button" href="https://guesthouse-bouceberio.github.io/guida-ospiti/percorsi" target="_blank">
   Visualizza i nostri percorsi
-  </a>
+  </a></center>
 
    </p>
   
@@ -1346,24 +1346,43 @@ footer {
     <a href="https://www.google.com/maps/@45.7408512,7.503872,13z?entry=ttu&g_ep=EgoyMDI2MDQwOC4wIKXMDSoASAFQAw%3D%3D" target="_blank" title="Fai una recensione su Google">
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="40" height="40">
     
-    <!-- sfondo neutro/bianco (Google non ha un solo colore di base) -->
+    <!-- sfondo -->
     <circle cx="16" cy="16" r="16" fill="#ffffff"/>
     
-    <!-- G stilizzata -->
-    <path fill="none" stroke="#4285F4" stroke-width="2.6" stroke-linecap="round"
-      d="M22 12a7 7 0 10-2 10h-4" />
+    <!-- definizione gradient -->
+    <defs>
+      <linearGradient id="ggrad" x1="10" y1="10" x2="24" y2="24" gradientUnits="userSpaceOnUse">
+        <stop offset="0%" stop-color="#4285F4"/>
+        <stop offset="35%" stop-color="#34A853"/>
+        <stop offset="65%" stop-color="#FBBC05"/>
+        <stop offset="100%" stop-color="#EA4335"/>
+      </linearGradient>
+    </defs>
     
-    <!-- barra interna -->
-    <path fill="#4285F4" d="M16 16h6v2h-6z"/>
+    <!-- G spessa e continua -->
+    <path
+      d="
+        M23 14.2
+        A7.2 7.2 0 1 0 23 18
+        H17.5
+      "
+      fill="none"
+      stroke="url(#ggrad)"
+      stroke-width="3.2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
     
-    <!-- accento multicolor -->
-    <circle cx="16" cy="16" r="10.5" fill="none"
-      stroke-dasharray="6 4 6 4 6 4 6 4"
-      stroke-width="2"
-      stroke="#EA4335"/>
+    <!-- barra interna (tipica G) -->
+    <path
+      d="M17.5 16h5.5"
+      stroke="url(#ggrad)"
+      stroke-width="3.2"
+      stroke-linecap="round"
+    />
     
   </svg>
-    </a>
+</a>
      
      <!-- Booking -->
     <a href="https://www.booking.com/" target="_blank" title="Fai una recensione su Booking">
