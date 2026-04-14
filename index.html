@@ -1349,37 +1349,38 @@ footer {
     <!-- sfondo -->
     <circle cx="16" cy="16" r="16" fill="#ffffff"/>
     
-    <!-- definizione gradient -->
+    <!-- gradient Google -->
     <defs>
-      <linearGradient id="ggrad" x1="10" y1="10" x2="24" y2="24" gradientUnits="userSpaceOnUse">
+      <linearGradient id="ggrad2" x1="8" y1="8" x2="26" y2="26" gradientUnits="userSpaceOnUse">
         <stop offset="0%" stop-color="#4285F4"/>
-        <stop offset="35%" stop-color="#34A853"/>
-        <stop offset="65%" stop-color="#FBBC05"/>
+        <stop offset="30%" stop-color="#34A853"/>
+        <stop offset="60%" stop-color="#FBBC05"/>
         <stop offset="100%" stop-color="#EA4335"/>
       </linearGradient>
     </defs>
     
-    <!-- G spessa e continua -->
+    <!-- arco principale G (più spesso e aperto) -->
     <path
       d="
-        M23 14.2
-        A7.2 7.2 0 1 0 23 18
-        H17.5
+        M23 12.8
+        A7.8 7.8 0 1 0 23 19.2
       "
       fill="none"
-      stroke="url(#ggrad)"
-      stroke-width="3.2"
+      stroke="url(#ggrad2)"
+      stroke-width="4.2"
       stroke-linecap="round"
-      stroke-linejoin="round"
     />
     
-    <!-- barra interna (tipica G) -->
+    <!-- taglio interno della G (più separato e netto) -->
     <path
-      d="M17.5 16h5.5"
-      stroke="url(#ggrad)"
-      stroke-width="3.2"
+      d="M17.2 16h6.2"
+      stroke="url(#ggrad2)"
+      stroke-width="4.2"
       stroke-linecap="round"
     />
+    
+    <!-- piccolo “stacco visivo” per evitare fusione tra arco e barra -->
+    <circle cx="23" cy="16" r="1.2" fill="#ffffff"/>
     
   </svg>
 </a>
