@@ -1348,7 +1348,7 @@ footer {
     
     <!-- gradient Google -->
     <defs>
-      <linearGradient id="ggrad4" x1="8" y1="8" x2="26" y2="26" gradientUnits="userSpaceOnUse">
+      <linearGradient id="ggrad5" x1="8" y1="8" x2="26" y2="26" gradientUnits="userSpaceOnUse">
         <stop offset="0%" stop-color="#4285F4"/>
         <stop offset="30%" stop-color="#34A853"/>
         <stop offset="60%" stop-color="#FBBC05"/>
@@ -1356,29 +1356,28 @@ footer {
       </linearGradient>
     </defs>
     
-    <!-- G APERTA: arco interrotto prima della chiusura -->
+    <!-- G CORRETTA (apertura in alto) -->
     <path
       d="
-        M22.5 11.5
-        A8 8 0 1 0 22.5 20
+        M10.5 11.5
+        A8 8 0 1 1 10.5 20.5
       "
       fill="none"
-      stroke="url(#ggrad4)"
+      stroke="url(#ggrad5)"
       stroke-width="4.6"
       stroke-linecap="round"
-      stroke-dasharray="34 60"
     />
     
-    <!-- barra orizzontale (nettamente separata dalla curva) -->
+    <!-- barra orizzontale interna (ben separata) -->
     <path
-      d="M17 16h6.5"
-      stroke="url(#ggrad4)"
+      d="M15.5 16h7"
+      stroke="url(#ggrad5)"
       stroke-width="4.6"
       stroke-linecap="round"
     />
     
-    <!-- punto di separazione netto (evita effetto chiusura visiva) -->
-    <circle cx="22.5" cy="16" r="1.4" fill="#ffffff"/>
+    <!-- micro stacco visivo -->
+    <circle cx="10.5" cy="16" r="1.3" fill="#ffffff"/>
     
   </svg>
 </a>
